@@ -1,0 +1,30 @@
+.header {
+	display: flex;
+	justify-content: center;
+	border: 2px solid rgba(76, 76, 255, 1);
+	height: 88px;
+}
+
+.headerNavigation {
+	display: flex;
+	position: relative;
+	justify-content: space-between;
+	align-items: center;
+	min-width: 1300px;
+}
+
+.headerLink {
+	display: flex;
+	gap: 8px;
+	border-radius: 25px;
+
+	&:last-child {
+		margin-left: auto;
+	}
+}
+
+.headerLogo {
+	position: absolute;
+	left: calc(50% - 145px);
+	top: 17px;
+}
