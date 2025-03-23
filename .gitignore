@@ -17,3 +17,6 @@ lerna-debug.log*
 
 build
 dist
+
+# My service folders
+ServiceFolder
