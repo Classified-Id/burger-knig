@@ -13,6 +13,7 @@ import { ReactComponent as TypescriptLogo } from '../../images/typescript.svg';
 export const App = () => {
 	const { data } = useGetBurgerDataQuery(null);
 	const burgerData = useAppSelector(getBurgerData);
+	console.log(data);
 
 	const [count, setCount] = useState(0);
 
