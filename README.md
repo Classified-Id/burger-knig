@@ -1,2 +1,3 @@
-Add project
-it's empty here for now
+# Космическая бургерная
+
+## локальный запуск: npm run start

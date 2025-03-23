@@ -24,8 +24,8 @@
 			"@components/*": ["./src/components/*"],
 			"@services/*": ["./src/services/*"],
 			"@utils/*": ["./src/utils/*"],
-			"@store/*": ["./src/store/*"],
-			"@constants/*": ["./src/constants/*"],
+			"@store": ["./src/store/index"],
+			"@constants": ["./src/constants/index"],
 		}
 	},
 	"outDir": "./dist/",

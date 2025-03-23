@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
 
-import {
-	useAppSelector,
-	getBurgerData,
-	useGetBurgerDataQuery,
-} from '@store/index';
+import { useAppSelector, getBurgerData, useGetBurgerDataQuery } from '@store';
 import { add } from '@utils/one';
 import { AppHeader } from '@components/app-header/app-header';
 
-import s from './app.module.scss';
+import styles from './app.module.scss';
 
 import reactLogo from '../../images/react.svg';
 import { ReactComponent as TypescriptLogo } from '../../images/typescript.svg';
@@ -20,8 +16,6 @@ export const App = () => {
 
 	const [count, setCount] = useState(0);
 
-	console.log('data', data);
-
 	return (
 		<div className='page'>
 			<AppHeader />
@@ -30,16 +24,16 @@ export const App = () => {
 				<a href='https://reactjs.org' target='_blank' rel='noreferrer'>
 					<img
 						src={reactLogo}
-						className={clsx(s.logo, s.react)}
+						className={clsx(styles.logo, styles.react)}
 						alt={`React logo ${add(2, 5)}`}
 					/>
 				</a>
 				<a href='https://vitejs.dev' target='_blank' rel='noreferrer'>
-					<TypescriptLogo className={s.logo} />
+					<TypescriptLogo className={styles.logo} />
 				</a>
 			</div>
 			<h1>React + TS</h1>
-			<div className={s.card}>
+			<div className={styles.card}>
 				<button onClick={() => setCount((count) => count + 1)}>
 					count is {count}
 				</button>
