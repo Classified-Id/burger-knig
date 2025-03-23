@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { clsx } from 'clsx';
 
-import { useAppSelector, getBurgerData, useGetBurgerDataQuery } from '@store/index';
+import {
+	useAppSelector,
+	getBurgerData,
+	useGetBurgerDataQuery,
+} from '@store/index';
 import { add } from '@utils/one';
 import { AppHeader } from '@components/app-header/app-header';
 
