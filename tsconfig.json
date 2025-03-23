@@ -23,7 +23,9 @@
 			"@pages/*": ["./src/pages/*"],
 			"@components/*": ["./src/components/*"],
 			"@services/*": ["./src/services/*"],
-			"@utils/*": ["./src/utils/*"]
+			"@utils/*": ["./src/utils/*"],
+			"@store/*": ["./src/store/*"],
+			"@constants/*": ["./src/constants/*"],
 		}
 	},
 	"outDir": "./dist/",
