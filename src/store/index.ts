@@ -21,5 +21,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export { rootReducer } from './slices';
 
-export { useGetBurgerDataQuery } from './slices/api/burger-data.api';
+export { useGetIngredientsQuery } from './slices/api/burger-data.api';
 export { getBurgerData } from './slices/burgerStore/burger.selector';
+
+export type { TIngredient } from './types/ingredients.types';

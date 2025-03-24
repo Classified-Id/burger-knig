@@ -1,4 +1,4 @@
-import { useAppSelector, getBurgerData, useGetBurgerDataQuery } from '@store';
+import { useAppSelector, getBurgerData } from '@store';
 import { AppHeader } from '@components/app-header/app-header';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
@@ -6,9 +6,8 @@ import { BurgerConstructor } from '@components/burger-constructor/burger-constru
 import styles from './app.module.scss';
 
 export const App = () => {
-	const { data } = useGetBurgerDataQuery(null);
 	const burgerData = useAppSelector(getBurgerData);
-	console.log(data, burgerData);
+	console.log(burgerData);
 
 	return (
 		<main className={styles.main}>

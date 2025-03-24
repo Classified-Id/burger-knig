@@ -82,8 +82,30 @@ button:focus-visible {
 	}
 }
 
-
 .constructor-element {
 	flex-grow: 0;
 	border-radius: 44px;
+}
+
+.list {
+	scrollbar-width: thin; /* Тонкий скроллбар */
+	scrollbar-color: #888888 #f0f0f0; /* Цвет бегунка и фона */
+}
+
+.list::-webkit-scrollbar {
+	width: 14px;
+}
+
+.list::-webkit-scrollbar-track {
+	background: #f0f0f0;
+	border-radius: 4px;
+}
+
+.list::-webkit-scrollbar-thumb {
+	background: #888888;
+	border-radius: 4px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+	background: #555555;
 }

@@ -1,17 +1,20 @@
 import { clsx } from 'clsx';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { Product } from '@components/product/product';
 
 import styles from './products-list.module.scss';
 
 import type { FC, ReactNode } from 'react';
+import type { TIngredient } from '@store';
 
 interface ProductsListProps {
 	children: ReactNode;
+	data: TIngredient[];
 }
 
 //todo создать компонент product
 
-export const ProductsList: FC<ProductsListProps> = ({ children }) => {
+export const ProductsList: FC<ProductsListProps> = ({ data, children }) => {
 	return (
 		<>
 			<h2 className={clsx(styles.title, 'text text_type_main-medium')}>
@@ -25,65 +28,19 @@ export const ProductsList: FC<ProductsListProps> = ({ children }) => {
 					'mr-4',
 					'mb-10'
 				)}>
-				<a href='/test'>
-					<figure className={styles.card}>
-						<img
-							src='https://main-cdn.sbermegamarket.ru/big1/hlr-system/-34/290/586/471/215/48/100028795448b0.jpg'
-							alt='Описание изображения'
-							className={'ml-4 mr-4 mb-1'}
-						/>
-						<figcaption
-							style={{ display: 'flex', gap: '8px' }}
-							className={'mb-1 text text_type_digits-default'}>
-							20 <CurrencyIcon type='primary' />
-						</figcaption>
-						<figcaption
-							style={{ height: '48px' }}
-							className={'text text_type_main-small'}>
-							Краторная булка N-200i
-						</figcaption>
-					</figure>
-				</a>
-
-				<a href='/test'>
-					<figure className={styles.card}>
-						<img
-							src='https://main-cdn.sbermegamarket.ru/big1/hlr-system/-34/290/586/471/215/48/100028795448b0.jpg'
-							alt='Описание изображения'
-							className={'ml-4 mr-4 mb-1'}
-						/>
-						<figcaption
-							style={{ display: 'flex', gap: '8px' }}
-							className={'mb-1 text text_type_digits-default'}>
-							20 <CurrencyIcon type='primary' />
-						</figcaption>
-						<figcaption
-							style={{ height: '48px' }}
-							className={'text text_type_main-small'}>
-							Краторная булка N-200i
-						</figcaption>
-					</figure>
-				</a>
-
-				<a href='/test'>
-					<figure className={styles.card}>
-						<img
-							src='https://main-cdn.sbermegamarket.ru/big1/hlr-system/-34/290/586/471/215/48/100028795448b0.jpg'
-							alt='Описание изображения'
-							className={'ml-4 mr-4 mb-1'}
-						/>
-						<figcaption
-							style={{ display: 'flex', gap: '8px' }}
-							className={'mb-1 text text_type_digits-default'}>
-							20 <CurrencyIcon type='primary' />
-						</figcaption>
-						<figcaption
-							style={{ height: '48px' }}
-							className={'text text_type_main-small'}>
-							Краторная булка N-200i
-						</figcaption>
-					</figure>
-				</a>
+				<ul
+					className={clsx(styles.list, 'list')}
+					style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}>
+					{data.map((ingredient) => {
+						return (
+							<li
+								key={ingredient._id}
+								style={{ display: 'flex', flexBasis: '272px' }}>
+								<Product data={ingredient} />
+							</li>
+						);
+					})}
+				</ul>
 			</div>
 		</>
 	);

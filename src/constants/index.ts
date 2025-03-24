@@ -1,1 +1,2 @@
-export const TEST = 123;
+export const INGREDIENTS_URL =
+	'https://norma.nomoreparties.space/api/ingredients';
