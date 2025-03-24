@@ -12,8 +12,6 @@ interface ProductsListProps {
 	data: TIngredient[];
 }
 
-//todo создать компонент product
-
 export const ProductsList: FC<ProductsListProps> = ({ data, children }) => {
 	return (
 		<>

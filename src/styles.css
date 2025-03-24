@@ -88,8 +88,8 @@ button:focus-visible {
 }
 
 .list {
-	scrollbar-width: thin; /* Тонкий скроллбар */
-	scrollbar-color: #888888 #f0f0f0; /* Цвет бегунка и фона */
+	scrollbar-width: thin;
+	scrollbar-color: #888888 #f0f0f0;
 }
 
 .list::-webkit-scrollbar {
