@@ -7,7 +7,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ModalOverlay } from '../modal-overlay/modal-overlay';
 
-import styles from './modal.module.css';
+import styles from './modal.module.scss';
 
 import type { ReactNode, FC } from 'react';
 
@@ -39,7 +39,7 @@ export const Modal: FC<IModalProps> = (props) => {
 				onClick={(e) => e.stopPropagation()}
 				role='button'
 				tabIndex={0}>
-				<div className={styles.modalContentCaption}>
+				<header className={styles.modalContentCaption}>
 					<span className='text text_type_main-medium'>{props.header}</span>
 					<Button
 						className={styles.closeButton}
@@ -49,7 +49,7 @@ export const Modal: FC<IModalProps> = (props) => {
 						onClick={props.onClose}>
 						<CloseIcon type={'primary'} />
 					</Button>
-				</div>
+				</header>
 				{props.children}
 			</div>
 		</div>

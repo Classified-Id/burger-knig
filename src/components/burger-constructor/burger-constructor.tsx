@@ -1,3 +1,8 @@
+import { useState } from 'react';
+
+import { Modal } from '@components/modal';
+import { OrderDetails } from '@components/order-details/order-details';
+
 import {
 	Button,
 	ConstructorElement,
@@ -8,8 +13,10 @@ import {
 import styles from './burger-constructor.module.scss';
 
 export const BurgerConstructor = () => {
-	const handle = () => {
-		console.log(1);
+	const [showModal, setShowModal] = useState(false);
+
+	const toggleModal = () => {
+		setShowModal(!showModal);
 	};
 
 	return (
@@ -46,10 +53,20 @@ export const BurgerConstructor = () => {
 			<div style={{ textAlign: 'right' }}>
 				<span className='text text_type_digits-medium'>610</span>
 				<CurrencyIcon type='primary' className={'mr-10'} />
-				<Button htmlType='button' type='primary' size='medium' onClick={handle}>
+				<Button
+					htmlType='button'
+					type='primary'
+					size='medium'
+					onClick={toggleModal}>
 					Оформить заказ
 				</Button>
 			</div>
+
+			{showModal && (
+				<Modal onClose={toggleModal}>
+					<OrderDetails />
+				</Modal>
+			)}
 		</section>
 	);
 };
