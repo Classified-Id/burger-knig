@@ -37,7 +37,7 @@ export const BurgerConstructor = () => {
 						<DragIcon type={'primary'} />
 					</Button>
 					<ConstructorElement
-						isLocked={true}
+						isLocked={false}
 						text='Соус Spicy-X'
 						price={90}
 						thumbnail={'https://code.s3.yandex.net/react/code/sauce-02.png'}
@@ -53,7 +53,7 @@ export const BurgerConstructor = () => {
 						<DragIcon type={'primary'} />
 					</Button>
 					<ConstructorElement
-						isLocked={true}
+						isLocked={false}
 						text='Соус фирменный Space Sauce'
 						price={80}
 						thumbnail={'https://code.s3.yandex.net/react/code/sauce-04.png'}
@@ -69,7 +69,7 @@ export const BurgerConstructor = () => {
 						<DragIcon type={'primary'} />
 					</Button>
 					<ConstructorElement
-						isLocked={true}
+						isLocked={false}
 						text='Биокотлета из марсианской Магнолии'
 						price={424}
 						thumbnail={'https://code.s3.yandex.net/react/code/meat-01.png'}
@@ -85,7 +85,7 @@ export const BurgerConstructor = () => {
 						<DragIcon type={'primary'} />
 					</Button>
 					<ConstructorElement
-						isLocked={true}
+						isLocked={false}
 						text='Говяжий метеорит (отбивная)'
 						price={3000}
 						thumbnail={'https://code.s3.yandex.net/react/code/meat-04.png'}
@@ -101,7 +101,7 @@ export const BurgerConstructor = () => {
 						<DragIcon type={'primary'} />
 					</Button>
 					<ConstructorElement
-						isLocked={true}
+						isLocked={false}
 						text='Мини-салат Экзо-Плантаго'
 						price={4400}
 						thumbnail={'https://code.s3.yandex.net/react/code/salad.png'}
