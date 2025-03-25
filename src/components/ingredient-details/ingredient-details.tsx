@@ -15,7 +15,7 @@ export const IngredientDetails: FC<ingredientProps> = ({ ingredient }) => {
 			<img
 				src={ingredient.image_large}
 				alt={ingredient.name}
-				style={{ width: '480px' }}
+				className={styles.image}
 			/>
 			<span className='text text_type_main-medium'>{ingredient?.name}</span>
 			<div className={styles.productSaturation}>

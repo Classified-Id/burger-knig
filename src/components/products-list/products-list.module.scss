@@ -26,6 +26,9 @@
 }
 
 .list {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
 	padding: 0;
 	overflow-y: auto;
 	height: calc(100vh - 450px);
@@ -48,4 +51,9 @@
 	&::-webkit-scrollbar-thumb:hover {
 		background: #555;
 	}
+}
+
+.listElement {
+	display: flex;
+	flex-basis: 272px;
 }

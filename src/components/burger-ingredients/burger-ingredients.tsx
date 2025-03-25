@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { clsx } from 'clsx';
 
 import { useGetIngredientsQuery } from '@store';
 
 import { ProductsList } from '@components/products-list/products-list';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import styles from './burger-ingredients.module.scss';
 
 export const BurgerIngredients = () => {
 	const [tab, setTab] = useState('buns');
@@ -19,12 +22,12 @@ export const BurgerIngredients = () => {
 	}
 
 	return (
-		<section style={{ width: '600px', overflow: 'hidden' }}>
+		<section className={styles.ingredients}>
 			<h1 className={'mt-10 mb-5 text text_type_main-large'}>
 				Соберите бургер
 			</h1>
 
-			<div style={{ display: 'flex', width: '600px' }} className={'mb-10'}>
+			<div className={clsx('mb-10', styles.tabs)}>
 				<Tab value='buns' active={tab === 'buns'} onClick={setTab}>
 					Булки
 				</Tab>

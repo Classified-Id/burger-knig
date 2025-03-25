@@ -2,3 +2,23 @@
 	padding: 0;
 	margin-right: 8px;
 }
+
+.burgerConstructor {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 600px;
+}
+
+.list {
+	display: flex;
+	list-style: none;
+}
+
+.listElement {
+	display: flex;
+}
+
+.placeAnOrder {
+	text-align: right;
+}

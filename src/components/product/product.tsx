@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { clsx } from 'clsx';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { Modal } from '@components/modal';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
+import { useModal } from '@hooks/useModal';
 
 import styles from './product.module.scss';
 
@@ -15,16 +16,12 @@ type productType = {
 };
 
 export const Product: FC<productType> = ({ data }) => {
-	const [showModal, setShowModal] = useState(false);
-
-	const toggleModal = () => {
-		setShowModal(!showModal);
-	};
+	const { isModalOpen, openModal, closeModal } = useModal();
 
 	return (
 		<>
 			<div
-				onClick={toggleModal}
+				onClick={openModal}
 				role={'button'}
 				tabIndex={0}
 				className={styles.cardWrapper}>
@@ -32,20 +29,23 @@ export const Product: FC<productType> = ({ data }) => {
 					<img src={data.image} alt={data.name} className={'ml-4 mr-4 mb-1'} />
 					<figcaption
 						style={{ display: 'flex', gap: '8px' }}
-						className={'mb-1 text text_type_digits-default'}>
+						className={clsx(
+							'mb-1 text text_type_digits-default',
+							styles.signature
+						)}>
 						{data.price}
 						<CurrencyIcon type='primary' />
 					</figcaption>
 					<figcaption
 						style={{ height: '48px' }}
-						className={'text text_type_main-small'}>
+						className={clsx('text text_type_main-small', styles.signature)}>
 						{data.name}
 					</figcaption>
 				</figure>
 			</div>
 
-			{showModal && (
-				<Modal onClose={toggleModal} header={'Детали ингредиента'}>
+			{isModalOpen && (
+				<Modal onClose={closeModal} header={'Детали ингредиента'}>
 					<IngredientDetails ingredient={data} />
 				</Modal>
 			)}

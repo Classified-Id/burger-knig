@@ -1,4 +1,5 @@
 import React from 'react';
+import { clsx } from 'clsx';
 
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -13,7 +14,7 @@ export const OrderDetails = () => {
 			<p className='text text_type_main-small mb-2'>
 				Ваш заказ начали готовить
 			</p>
-			<p className='text text_type_main-small mb-30' style={{ color: 'gray' }}>
+			<p className={clsx('text text_type_main-small mb-30', styles.secondText)}>
 				Дождитесь готовности на орбитальной станции
 			</p>
 		</section>

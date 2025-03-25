@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { clsx } from 'clsx';
 
 import {
 	CloseIcon,
@@ -39,17 +40,19 @@ export const Modal: FC<IModalProps> = (props) => {
 				onClick={(e) => e.stopPropagation()}
 				role='button'
 				tabIndex={0}>
-				<header className={styles.modalContentCaption}>
-					<span className='text text_type_main-medium'>{props.header}</span>
+				<div className={styles.modalContentCaption}>
+					<h2 className='text text_type_main-large mt-40 ml-40'>
+						{props.header}
+					</h2>
 					<Button
-						className={styles.closeButton}
+						className={clsx(styles.closeButton, 'mt-48', 'mr-40')}
 						htmlType='button'
 						type='secondary'
 						size='small'
 						onClick={props.onClose}>
 						<CloseIcon type={'primary'} />
 					</Button>
-				</header>
+				</div>
 				{props.children}
 			</div>
 		</div>

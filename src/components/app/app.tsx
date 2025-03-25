@@ -10,12 +10,12 @@ export const App = () => {
 	console.log(burgerData);
 
 	return (
-		<main className={styles.main}>
+		<div className={styles.main}>
 			<AppHeader />
-			<article className={styles.content}>
+			<main className={styles.content}>
 				<BurgerIngredients />
 				<BurgerConstructor />
-			</article>
-		</main>
+			</main>
+		</div>
 	);
 };

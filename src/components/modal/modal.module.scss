@@ -5,8 +5,6 @@
 	background-color: rgb(28 28 33);
 	padding: 0;
 	height: 26px;
-	margin-right: 40px;
-	margin-top: 40px;
 
 	&:hover {
 		border: 1px solid rgba(0, 0, 0, 0);
@@ -31,10 +29,10 @@
 
 .modalContentCaption {
 	display: flex;
-	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
-	margin: 10px;
+	padding: 40px 40px 0 40px;
+	align-items: center;
 }
 
 .modalContentCaption span {

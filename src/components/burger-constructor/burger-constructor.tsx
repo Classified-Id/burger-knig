@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { clsx } from 'clsx';
 
 import { Modal } from '@components/modal';
 import { OrderDetails } from '@components/order-details/order-details';
+import { useModal } from '@hooks/useModal';
 
 import {
 	Button,
@@ -13,23 +14,12 @@ import {
 import styles from './burger-constructor.module.scss';
 
 export const BurgerConstructor = () => {
-	const [showModal, setShowModal] = useState(false);
-
-	const toggleModal = () => {
-		setShowModal(!showModal);
-	};
+	const { isModalOpen, openModal, closeModal } = useModal();
 
 	return (
-		<section
-			className={'pt-25'}
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: '10px',
-				width: '600px',
-			}}>
-			<ul style={{ display: 'flex', listStyle: 'none' }}>
-				<li style={{ display: 'flex' }}>
+		<section className={clsx('pt-25', styles.burgerConstructor)}>
+			<ul className={styles.list}>
+				<li className={styles.listElement}>
 					{' '}
 					<Button
 						className={styles.dropButton}
@@ -50,20 +40,20 @@ export const BurgerConstructor = () => {
 				</li>
 			</ul>
 
-			<div style={{ textAlign: 'right' }}>
+			<div className={styles.placeAnOrder}>
 				<span className='text text_type_digits-medium'>610</span>
 				<CurrencyIcon type='primary' className={'mr-10'} />
 				<Button
 					htmlType='button'
 					type='primary'
 					size='medium'
-					onClick={toggleModal}>
+					onClick={openModal}>
 					Оформить заказ
 				</Button>
 			</div>
 
-			{showModal && (
-				<Modal onClose={toggleModal}>
+			{isModalOpen && (
+				<Modal onClose={closeModal}>
 					<OrderDetails />
 				</Modal>
 			)}

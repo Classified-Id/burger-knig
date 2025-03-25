@@ -26,14 +26,10 @@ export const ProductsList: FC<ProductsListProps> = ({ data, children }) => {
 					'mr-4',
 					'mb-10'
 				)}>
-				<ul
-					className={clsx(styles.list, 'list')}
-					style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none' }}>
+				<ul className={clsx(styles.list, 'list')}>
 					{data.map((ingredient) => {
 						return (
-							<li
-								key={ingredient._id}
-								style={{ display: 'flex', flexBasis: '272px' }}>
+							<li key={ingredient._id} className={styles.listElement}>
 								<Product data={ingredient} />
 							</li>
 						);
