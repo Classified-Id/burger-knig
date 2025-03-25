@@ -82,11 +82,6 @@ button:focus-visible {
 	}
 }
 
-.constructor-element {
-	flex-grow: 0;
-	border-radius: 44px;
-}
-
 .list {
 	scrollbar-width: thin;
 	scrollbar-color: #888888 #f0f0f0;

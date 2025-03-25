@@ -18,6 +18,14 @@ export const BurgerConstructor = () => {
 
 	return (
 		<section className={clsx('pt-25', styles.burgerConstructor)}>
+			<ConstructorElement
+				type='top'
+				isLocked={true}
+				extraClass={styles.buns}
+				text='Краторная булка N-200i (верх)'
+				price={200}
+				thumbnail={'https://code.s3.yandex.net/react/code/bun-01.png'}
+			/>
 			<ul className={styles.list}>
 				<li className={styles.listElement}>
 					{' '}
@@ -29,18 +37,87 @@ export const BurgerConstructor = () => {
 						<DragIcon type={'primary'} />
 					</Button>
 					<ConstructorElement
-						type='top'
 						isLocked={true}
-						text='Краторная булка N-200i (верх)'
-						price={200}
-						thumbnail={
-							'https://main-cdn.sbermegamarket.ru/big1/hlr-system/-34/290/586/471/215/48/100028795448b0.jpg'
-						}
+						text='Соус Spicy-X'
+						price={90}
+						thumbnail={'https://code.s3.yandex.net/react/code/sauce-02.png'}
+					/>
+				</li>
+				<li className={styles.listElement}>
+					{' '}
+					<Button
+						className={styles.dropButton}
+						htmlType='button'
+						type='secondary'
+						size='small'>
+						<DragIcon type={'primary'} />
+					</Button>
+					<ConstructorElement
+						isLocked={true}
+						text='Соус фирменный Space Sauce'
+						price={80}
+						thumbnail={'https://code.s3.yandex.net/react/code/sauce-04.png'}
+					/>
+				</li>
+				<li className={styles.listElement}>
+					{' '}
+					<Button
+						className={styles.dropButton}
+						htmlType='button'
+						type='secondary'
+						size='small'>
+						<DragIcon type={'primary'} />
+					</Button>
+					<ConstructorElement
+						isLocked={true}
+						text='Биокотлета из марсианской Магнолии'
+						price={424}
+						thumbnail={'https://code.s3.yandex.net/react/code/meat-01.png'}
+					/>
+				</li>
+				<li className={styles.listElement}>
+					{' '}
+					<Button
+						className={styles.dropButton}
+						htmlType='button'
+						type='secondary'
+						size='small'>
+						<DragIcon type={'primary'} />
+					</Button>
+					<ConstructorElement
+						isLocked={true}
+						text='Говяжий метеорит (отбивная)'
+						price={3000}
+						thumbnail={'https://code.s3.yandex.net/react/code/meat-04.png'}
+					/>
+				</li>
+				<li className={styles.listElement}>
+					{' '}
+					<Button
+						className={styles.dropButton}
+						htmlType='button'
+						type='secondary'
+						size='small'>
+						<DragIcon type={'primary'} />
+					</Button>
+					<ConstructorElement
+						isLocked={true}
+						text='Мини-салат Экзо-Плантаго'
+						price={4400}
+						thumbnail={'https://code.s3.yandex.net/react/code/salad.png'}
 					/>
 				</li>
 			</ul>
+			<ConstructorElement
+				type='bottom'
+				isLocked={true}
+				extraClass={styles.buns}
+				text='Краторная булка N-200i (низ)'
+				price={200}
+				thumbnail={'https://code.s3.yandex.net/react/code/bun-01.png'}
+			/>
 
-			<div className={styles.placeAnOrder}>
+			<div className={clsx(styles.placeAnOrder, 'mt-10')}>
 				<span className='text text_type_digits-medium'>610</span>
 				<CurrencyIcon type='primary' className={'mr-10'} />
 				<Button

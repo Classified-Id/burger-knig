@@ -8,15 +8,24 @@
 	flex-direction: column;
 	gap: 10px;
 	width: 600px;
+	align-items: flex-end;
 }
 
 .list {
-	display: flex;
 	list-style: none;
+	max-height: 400px;
+	overflow-y: scroll;
+	padding: 16px 0;
+	margin: 0;
 }
 
 .listElement {
 	display: flex;
+	margin-bottom: 16px;
+}
+
+.buns {
+	max-height: 80px;
 }
 
 .placeAnOrder {
