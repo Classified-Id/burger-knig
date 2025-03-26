@@ -5,11 +5,11 @@ import styles from './ingredient-details.module.scss';
 import type { FC } from 'react';
 import type { TIngredient } from '@store';
 
-type ingredientProps = {
+type IngredientProps = {
 	ingredient: TIngredient;
 };
 
-export const IngredientDetails: FC<ingredientProps> = ({ ingredient }) => {
+export const IngredientDetails: FC<IngredientProps> = ({ ingredient }) => {
 	return (
 		<section className={styles.productPortal}>
 			<img

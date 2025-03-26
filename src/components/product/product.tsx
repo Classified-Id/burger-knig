@@ -11,11 +11,11 @@ import styles from './product.module.scss';
 import type { FC } from 'react';
 import type { TIngredient } from '@store';
 
-type productType = {
+type ProductType = {
 	data: TIngredient;
 };
 
-export const Product: FC<productType> = ({ data }) => {
+export const Product: FC<ProductType> = ({ data }) => {
 	const { isModalOpen, openModal, closeModal } = useModal();
 
 	return (
@@ -28,7 +28,6 @@ export const Product: FC<productType> = ({ data }) => {
 				<figure className={styles.card}>
 					<img src={data.image} alt={data.name} className={'ml-4 mr-4 mb-1'} />
 					<figcaption
-						style={{ display: 'flex', gap: '8px' }}
 						className={clsx(
 							'mb-1 text text_type_digits-default',
 							styles.signature
@@ -37,7 +36,6 @@ export const Product: FC<productType> = ({ data }) => {
 						<CurrencyIcon type='primary' />
 					</figcaption>
 					<figcaption
-						style={{ height: '48px' }}
 						className={clsx('text text_type_main-small', styles.signature)}>
 						{data.name}
 					</figcaption>
