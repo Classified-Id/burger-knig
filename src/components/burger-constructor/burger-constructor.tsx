@@ -28,14 +28,7 @@ export const BurgerConstructor = () => {
 			/>
 			<ul className={styles.list}>
 				<li className={styles.listElement}>
-					{' '}
-					<Button
-						className={styles.dropButton}
-						htmlType='button'
-						type='secondary'
-						size='small'>
-						<DragIcon type={'primary'} />
-					</Button>
+					<DragIcon type={'primary'} />
 					<ConstructorElement
 						isLocked={false}
 						text='Соус Spicy-X'
@@ -44,14 +37,7 @@ export const BurgerConstructor = () => {
 					/>
 				</li>
 				<li className={styles.listElement}>
-					{' '}
-					<Button
-						className={styles.dropButton}
-						htmlType='button'
-						type='secondary'
-						size='small'>
-						<DragIcon type={'primary'} />
-					</Button>
+					<DragIcon type={'primary'} />
 					<ConstructorElement
 						isLocked={false}
 						text='Соус фирменный Space Sauce'
@@ -60,14 +46,7 @@ export const BurgerConstructor = () => {
 					/>
 				</li>
 				<li className={styles.listElement}>
-					{' '}
-					<Button
-						className={styles.dropButton}
-						htmlType='button'
-						type='secondary'
-						size='small'>
-						<DragIcon type={'primary'} />
-					</Button>
+					<DragIcon type={'primary'} />
 					<ConstructorElement
 						isLocked={false}
 						text='Биокотлета из марсианской Магнолии'
@@ -76,14 +55,7 @@ export const BurgerConstructor = () => {
 					/>
 				</li>
 				<li className={styles.listElement}>
-					{' '}
-					<Button
-						className={styles.dropButton}
-						htmlType='button'
-						type='secondary'
-						size='small'>
-						<DragIcon type={'primary'} />
-					</Button>
+					<DragIcon type={'primary'} />
 					<ConstructorElement
 						isLocked={false}
 						text='Говяжий метеорит (отбивная)'
@@ -92,14 +64,7 @@ export const BurgerConstructor = () => {
 					/>
 				</li>
 				<li className={styles.listElement}>
-					{' '}
-					<Button
-						className={styles.dropButton}
-						htmlType='button'
-						type='secondary'
-						size='small'>
-						<DragIcon type={'primary'} />
-					</Button>
+					<DragIcon type={'primary'} />
 					<ConstructorElement
 						isLocked={false}
 						text='Мини-салат Экзо-Плантаго'
