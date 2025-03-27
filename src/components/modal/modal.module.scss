@@ -1,0 +1,43 @@
+.closeButton {
+	z-index: 5000;
+	display: flex;
+	cursor: pointer;
+	background-color: rgb(28 28 33);
+	padding: 0;
+	height: 26px;
+
+	&:hover {
+		border: 1px solid rgba(0, 0, 0, 0);
+	}
+}
+
+.modalContent {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 720px;
+	min-height: 540px;
+	color: #ffffff;
+	background-color: rgb(28 28 33);
+	border-radius: 12px;
+	transform: translate(-50%, -50%);
+}
+
+.modalContentCaption {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 40px 40px 0 40px;
+	align-items: center;
+}
+
+.modalContentCaption span {
+	position: relative;
+	float: left;
+	padding-top: 40px;
+	padding-left: 40px;
+}

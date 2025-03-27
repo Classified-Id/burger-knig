@@ -13,6 +13,14 @@
 	text-size-adjust: 100%;
 }
 
+#root {
+	width: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
 a {
 	color: #646cff;
 	font-weight: 500;
@@ -28,6 +36,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	min-width: 320px;
+	max-width: 100%;
 	min-height: 100vh;
 	margin: 0;
 }
@@ -71,4 +80,27 @@ button:focus-visible {
 	button {
 		background-color: #f9f9f9;
 	}
+}
+
+.list {
+	scrollbar-width: thin;
+	scrollbar-color: #888888 #f0f0f0;
+}
+
+.list::-webkit-scrollbar {
+	width: 14px;
+}
+
+.list::-webkit-scrollbar-track {
+	background: #f0f0f0;
+	border-radius: 4px;
+}
+
+.list::-webkit-scrollbar-thumb {
+	background: #888888;
+	border-radius: 4px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+	background: #555555;
 }

@@ -1,0 +1,59 @@
+.ingredientsBox {
+	display: flex;
+	max-width: 600px;
+	gap: 24px;
+	flex-wrap: wrap;
+
+	a {
+		color: inherit;
+	}
+
+	img {
+		min-width: 240px;
+		min-height: 120px;
+		width: 240px;
+		height: 120px;
+	}
+}
+
+.cost {
+	display: flex;
+	gap: 8px;
+}
+
+.title {
+	margin: 0;
+}
+
+.list {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	overflow-y: auto;
+	height: calc(100vh - 450px);
+	align-content: flex-start;
+
+	&::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: #f0f0f0;
+		border-radius: 4px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 4px;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
+}
+
+.listElement {
+	display: flex;
+	flex-basis: 272px;
+}

@@ -1,0 +1,39 @@
+.close_button {
+	display: flex;
+	padding-top: 40px;
+	padding-right: 50px;
+	cursor: pointer;
+}
+
+.order_details {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.image {
+	width: 480px;
+}
+
+.productPortal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+	width: auto;
+	height: auto;
+	margin-top: 20px;
+}
+
+.productSaturation {
+	display: flex;
+	justify-content: space-between;
+	gap: 30px;
+	width: 100%;
+	margin-top: 20px;
+
+	span {
+		text-align: center;
+	}
+}
