@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { INGREDIENTS_URL } from '@constants';
+import { setIngredientsData } from '../ingredients/ingredients.slice';
 
 import type {
 	TIngredientsResponse,
@@ -37,6 +38,13 @@ export const burgerDataApi = createApi({
 					mains,
 					sauces,
 				};
+			},
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					const allIngredients = [...data.buns, ...data.mains, ...data.sauces];
+					dispatch(setIngredientsData(allIngredients));
+				} catch (err) {}
 			},
 		}),
 	}),

@@ -22,6 +22,9 @@ export type AppDispatch = typeof store.dispatch;
 export { rootReducer } from './slices';
 
 export { useGetIngredientsQuery } from './slices/api/burger-data.api';
-export { getBurgerData } from './slices/burgerStore/burger.selector';
+export {
+	getBurgerIngredients,
+	getBurgerBuns,
+} from './slices/burgerIngredients/burgerIngredients.selector';
 
 export type { TIngredient } from './types/ingredients.types';
