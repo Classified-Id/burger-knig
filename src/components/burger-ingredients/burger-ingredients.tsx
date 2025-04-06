@@ -6,8 +6,6 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProductsList } from '@components/products-list/products-list';
 import { useScrollIngredients } from '@hooks/useScrollIngredients';
 
-import type { RefObject } from 'react';
-
 import styles from './burger-ingredients.module.scss';
 
 export const BurgerIngredients = () => {
@@ -18,26 +16,14 @@ export const BurgerIngredients = () => {
 	const mainsRef = useRef<HTMLHeadingElement>(null);
 	const containerRef = useRef<HTMLUListElement>(null);
 
-	const activeTab = useScrollIngredients(
+	const { activeTab, scrollToSection } = useScrollIngredients(
 		[bunsRef, saucesRef, mainsRef],
 		containerRef,
-		['buns', 'sauces', 'main'],
-		50
+		['buns', 'sauces', 'main']
 	);
-	console.log(error);
-	if (isLoading) {
-		return <p>Загрузка...</p>;
-	}
 
-	if (error || !data) {
-		return <p>Произошла ошибка</p>;
-	}
-
-	const scrollToSection = (ref: RefObject<HTMLHeadingElement>) => {
-		if (ref.current) {
-			ref.current.scrollIntoView({ behavior: 'smooth' });
-		}
-	};
+	if (isLoading) return <p>Загрузка...</p>;
+	if (error || !data) return <p>Произошла ошибка</p>;
 
 	return (
 		<section className={styles.ingredients}>
@@ -49,30 +35,23 @@ export const BurgerIngredients = () => {
 				<Tab
 					value='buns'
 					active={activeTab === 'buns'}
-					onClick={() => {
-						scrollToSection(bunsRef);
-					}}>
+					onClick={scrollToSection('buns')}>
 					Булки
 				</Tab>
 				<Tab
 					value='sauces'
 					active={activeTab === 'sauces'}
-					onClick={() => {
-						scrollToSection(saucesRef);
-					}}>
+					onClick={scrollToSection('sauces')}>
 					Соусы
 				</Tab>
 				<Tab
 					value='main'
 					active={activeTab === 'main'}
-					onClick={() => {
-						scrollToSection(mainsRef);
-					}}>
+					onClick={scrollToSection('main')}>
 					Начинки
 				</Tab>
 			</div>
 
-			{/* Контейнер с ограниченной высотой */}
 			<ul className={styles.ingredientsList} ref={containerRef}>
 				<ProductsList data={data.buns} ref={bunsRef}>
 					Булки

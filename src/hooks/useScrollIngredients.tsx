@@ -2,13 +2,16 @@ import { useState, useEffect } from 'react';
 
 import type { RefObject } from 'react';
 
+const THRESHOLD = 50;
+
+type TabValue = 'buns' | 'sauces' | 'main';
+
 export const useScrollIngredients = (
 	refs: Array<RefObject<HTMLElement>>,
 	containerRef: RefObject<HTMLElement>,
-	tabValues: string[],
-	threshold = 100
+	tabValues: TabValue[]
 ) => {
-	const [activeTab, setActiveTab] = useState<string | null>(tabValues[0]);
+	const [activeTab, setActiveTab] = useState<TabValue | null>(tabValues[0]);
 
 	useEffect(() => {
 		const container = containerRef.current;
@@ -21,7 +24,7 @@ export const useScrollIngredients = (
 				const ref = refs[i].current;
 				if (ref) {
 					const rect = ref.getBoundingClientRect();
-					if (containerRect.top - rect.top <= threshold) {
+					if (containerRect.top - rect.top <= THRESHOLD) {
 						setActiveTab(tabValues[i]);
 						break;
 					}
@@ -34,7 +37,18 @@ export const useScrollIngredients = (
 		handleScroll();
 
 		return () => container.removeEventListener('scroll', handleScroll);
-	}, [refs, containerRef, tabValues, threshold]);
+	}, [refs, containerRef, tabValues]);
 
-	return activeTab;
+	const scrollToSection = (indexOrValue: TabValue) => () => {
+		const index = tabValues.indexOf(indexOrValue);
+
+		if (index >= 0 && index < refs.length) {
+			const ref = refs[index]?.current;
+			if (ref) {
+				ref.scrollIntoView({ behavior: 'smooth' });
+			}
+		}
+	};
+
+	return { activeTab, scrollToSection };
 };
