@@ -1,18 +1,30 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { clsx } from 'clsx';
 
 import { useGetIngredientsQuery } from '@store';
-
-import { ProductsList } from '@components/products-list/products-list';
-
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ProductsList } from '@components/products-list/products-list';
+import { useScrollIngredients } from '@hooks/useScrollIngredients';
+
+import type { RefObject } from 'react';
 
 import styles from './burger-ingredients.module.scss';
 
 export const BurgerIngredients = () => {
-	const [tab, setTab] = useState('buns');
 	const { data, isLoading, error } = useGetIngredientsQuery();
 
+	const bunsRef = useRef<HTMLHeadingElement>(null);
+	const saucesRef = useRef<HTMLHeadingElement>(null);
+	const mainsRef = useRef<HTMLHeadingElement>(null);
+	const containerRef = useRef<HTMLUListElement>(null);
+
+	const activeTab = useScrollIngredients(
+		[bunsRef, saucesRef, mainsRef],
+		containerRef,
+		['buns', 'sauces', 'main'],
+		50
+	);
+	console.log(error);
 	if (isLoading) {
 		return <p>Загрузка...</p>;
 	}
@@ -21,6 +33,12 @@ export const BurgerIngredients = () => {
 		return <p>Произошла ошибка</p>;
 	}
 
+	const scrollToSection = (ref: RefObject<HTMLHeadingElement>) => {
+		if (ref.current) {
+			ref.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
+
 	return (
 		<section className={styles.ingredients}>
 			<h1 className={'mt-10 mb-5 text text_type_main-large'}>
@@ -28,22 +46,44 @@ export const BurgerIngredients = () => {
 			</h1>
 
 			<div className={clsx('mb-10', styles.tabs)}>
-				<Tab value='buns' active={tab === 'buns'} onClick={setTab}>
+				<Tab
+					value='buns'
+					active={activeTab === 'buns'}
+					onClick={() => {
+						scrollToSection(bunsRef);
+					}}>
 					Булки
 				</Tab>
-				<Tab value='sauces' active={tab === 'sauces'} onClick={setTab}>
+				<Tab
+					value='sauces'
+					active={activeTab === 'sauces'}
+					onClick={() => {
+						scrollToSection(saucesRef);
+					}}>
 					Соусы
 				</Tab>
-				<Tab value='main' active={tab === 'main'} onClick={setTab}>
+				<Tab
+					value='main'
+					active={activeTab === 'main'}
+					onClick={() => {
+						scrollToSection(mainsRef);
+					}}>
 					Начинки
 				</Tab>
 			</div>
 
-			{tab === 'buns' && <ProductsList data={data.buns}>Булки</ProductsList>}
-			{tab === 'sauces' && (
-				<ProductsList data={data.sauces}>Соусы</ProductsList>
-			)}
-			{tab === 'main' && <ProductsList data={data.mains}>Начинки</ProductsList>}
+			{/* Контейнер с ограниченной высотой */}
+			<ul className={styles.ingredientsList} ref={containerRef}>
+				<ProductsList data={data.buns} ref={bunsRef}>
+					Булки
+				</ProductsList>
+				<ProductsList data={data.sauces} ref={saucesRef}>
+					Соусы
+				</ProductsList>
+				<ProductsList data={data.mains} ref={mainsRef}>
+					Начинки
+				</ProductsList>
+			</ul>
 		</section>
 	);
 };

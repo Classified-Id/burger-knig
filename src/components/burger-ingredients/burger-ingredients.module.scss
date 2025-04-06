@@ -7,3 +7,9 @@
 	display: flex;
 	width: 600px;
 }
+
+.ingredientsList {
+	max-height: 600px;
+	overflow-y: scroll;
+	padding: 0;
+}
