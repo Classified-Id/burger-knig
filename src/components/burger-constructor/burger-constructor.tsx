@@ -32,7 +32,6 @@ export const BurgerConstructor = () => {
 
 	// const [sendOrder, { isLoading, isError, error, isSuccess, reset }] =
 	const [sendOrder] = useSendOrderMutation();
-
 	const price = useMemo(() => {
 		return (
 			burgerIngredients.reduce((acc, ingr) => acc + ingr.price, 0) +
