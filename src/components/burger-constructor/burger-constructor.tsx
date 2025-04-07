@@ -68,14 +68,7 @@ export const BurgerConstructor = () => {
 
 	const handleMoveIngredient = useCallback(
 		(dragIndex: number, hoverIndex: number) => {
-			const draggedItem = burgerIngredients[dragIndex];
-			const hoveredItem = burgerIngredients[hoverIndex];
-			const sortedIngredients = [...burgerIngredients];
-
-			sortedIngredients[dragIndex] = hoveredItem;
-			sortedIngredients[hoverIndex] = draggedItem;
-
-			dispatch(sortBurgerIngredients(sortedIngredients));
+			dispatch(sortBurgerIngredients({ dragIndex, hoverIndex }));
 		},
 		[burgerIngredients, dispatch]
 	);

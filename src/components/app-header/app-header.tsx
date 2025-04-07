@@ -11,7 +11,7 @@ import styles from './app-header.module.scss';
 
 export const AppHeader = () => {
 	return (
-		<header className={clsx(styles.header, 'mt-10', 'ml-10', 'mr-10')}>
+		<header className={styles.header}>
 			<nav className={clsx(styles.headerNavigation)}>
 				<a
 					href={'/constructor'}

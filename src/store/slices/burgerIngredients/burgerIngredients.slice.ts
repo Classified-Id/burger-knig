@@ -18,34 +18,40 @@ export const burgerIngredientsSlice = createSlice({
 	name: 'burgerIngredients',
 	initialState,
 	reducers: {
-		addBurgerIngredient(state, action: PayloadAction<TIngredient>) {
-			return {
-				...state,
-				ingredients: [
-					...state.ingredients,
-					{ idKey: uuid4(), ...action.payload },
-				],
-			};
+		addBurgerIngredient: {
+			reducer(state, action: PayloadAction<TIngredient>) {
+				state.ingredients.push(action.payload);
+			},
+			prepare(ingredient: TIngredient) {
+				const idKey = uuid4();
+				return {
+					payload: {
+						...ingredient,
+						idKey,
+					},
+				};
+			},
 		},
 		setBurgerBuns(state, action: PayloadAction<TIngredient>) {
-			return {
-				...state,
-				bun: action.payload,
-			};
+			state.bun = action.payload;
 		},
 		deleteBurgerIngredient(state, action: PayloadAction<number>) {
-			return {
-				...state,
-				ingredients: state.ingredients.filter(
-					(_, index) => index !== action.payload
-				),
-			};
+			state.ingredients = state.ingredients.filter(
+				(_, index) => index !== action.payload
+			);
 		},
-		sortBurgerIngredients(state, action: PayloadAction<TIngredient[]>) {
-			return {
-				...state,
-				ingredients: action.payload,
-			};
+		sortBurgerIngredients(
+			state,
+			action: PayloadAction<{ dragIndex: number; hoverIndex: number }>
+		) {
+			const { dragIndex, hoverIndex } = action.payload;
+			const draggedItem = state.ingredients[dragIndex];
+			const hoveredItem = state.ingredients[hoverIndex];
+			const sortedIngredients = [...state.ingredients];
+
+			sortedIngredients[dragIndex] = hoveredItem;
+			sortedIngredients[hoverIndex] = draggedItem;
+			state.ingredients = sortedIngredients;
 		},
 	},
 });
@@ -56,3 +62,5 @@ export const {
 	deleteBurgerIngredient,
 	sortBurgerIngredients,
 } = burgerIngredientsSlice.actions;
+
+export default burgerIngredientsSlice.reducer;
