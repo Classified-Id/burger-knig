@@ -60,8 +60,7 @@ export const BurgerConstructor = () => {
 				buns._id,
 			])
 				.unwrap()
-				.then((data) => {
-					console.log('11', data);
+				.then(() => {
 					dispatch(setShowOrderModal(true));
 				});
 		}
