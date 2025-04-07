@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 import { clsx } from 'clsx';
 import { useDrop } from 'react-dnd';
 
@@ -10,15 +10,15 @@ import {
 	getBurgerBuns,
 	setBurgerBuns,
 	addBurgerIngredient,
-	deleteBurgerIngredient,
+	sortBurgerIngredients,
 } from '@store';
 
 import {
 	Button,
 	ConstructorElement,
 	CurrencyIcon,
-	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { BurgerItem } from '@components/burger-item/burger-item';
 
 import styles from './burger-constructor.module.scss';
 
@@ -51,18 +51,29 @@ export const BurgerConstructor = () => {
 	});
 
 	const openModal = () => dispatch(setShowOrderModal(true));
-	const elements = burgerIngredients.map((item, index) => {
+
+	const handleMoveIngredient = useCallback(
+		(dragIndex: number, hoverIndex: number) => {
+			const draggedItem = burgerIngredients[dragIndex];
+			const hoveredItem = burgerIngredients[hoverIndex];
+			const sortedIngredients = [...burgerIngredients];
+
+			sortedIngredients[dragIndex] = hoveredItem;
+			sortedIngredients[hoverIndex] = draggedItem;
+
+			dispatch(sortBurgerIngredients(sortedIngredients));
+		},
+		[burgerIngredients]
+	);
+
+	const ingredientsList = burgerIngredients.map((ing: TIngredient, index) => {
 		return (
-			<li className={styles.listElement} key={item.idKey}>
-				<DragIcon type={'primary'} />
-				<ConstructorElement
-					isLocked={false}
-					text={item.name}
-					price={item.price}
-					thumbnail={item.image}
-					handleClose={() => dispatch(deleteBurgerIngredient(index))}
-				/>
-			</li>
+			<BurgerItem
+				ingredient={ing}
+				handleMove={handleMoveIngredient}
+				index={index}
+				key={ing.idKey}
+			/>
 		);
 	});
 
@@ -83,7 +94,7 @@ export const BurgerConstructor = () => {
 				/>
 			)}
 
-			<ul className={styles.list}>{elements}</ul>
+			<ul className={styles.list}>{ingredientsList}</ul>
 
 			{buns && (
 				<ConstructorElement
