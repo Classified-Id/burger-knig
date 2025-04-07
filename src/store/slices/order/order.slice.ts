@@ -2,13 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-type TOrderSliceInitState = {
-	order: number;
-	showOrderModal: boolean;
-};
+import type { TOrder, TOrderSliceInitState } from '../../types/order.types';
 
 const initialState: TOrderSliceInitState = {
-	order: 1,
+	order: {
+		name: '',
+		order: { number: 1 },
+		success: false,
+	},
 	showOrderModal: false,
 };
 
@@ -16,7 +17,7 @@ export const orderSlice = createSlice({
 	name: 'order',
 	initialState,
 	reducers: {
-		setOrderData(state, action: PayloadAction<number>) {
+		setOrderData(state, action: PayloadAction<TOrder>) {
 			state.order = action.payload;
 		},
 		setShowOrderModal(state, action: PayloadAction<boolean>) {

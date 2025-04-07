@@ -11,6 +11,7 @@ import {
 	setBurgerBuns,
 	addBurgerIngredient,
 	sortBurgerIngredients,
+	useSendOrderMutation,
 } from '@store';
 
 import {
@@ -28,6 +29,9 @@ export const BurgerConstructor = () => {
 	const dispatch = useAppDispatch();
 	const buns = useAppSelector(getBurgerBuns);
 	const burgerIngredients = useAppSelector(getBurgerIngredients);
+
+	// const [sendOrder, { isLoading, isError, error, isSuccess, reset }] =
+	const [sendOrder] = useSendOrderMutation();
 
 	const price = useMemo(() => {
 		return (
@@ -50,7 +54,20 @@ export const BurgerConstructor = () => {
 		}),
 	});
 
-	const openModal = () => dispatch(setShowOrderModal(true));
+	const handleOrder = () => {
+		if (buns !== null) {
+			sendOrder([
+				buns._id,
+				...burgerIngredients.map((ing) => ing._id),
+				buns._id,
+			])
+				.unwrap()
+				.then((data) => {
+					console.log('11', data);
+					dispatch(setShowOrderModal(true));
+				});
+		}
+	};
 
 	const handleMoveIngredient = useCallback(
 		(dragIndex: number, hoverIndex: number) => {
@@ -63,7 +80,7 @@ export const BurgerConstructor = () => {
 
 			dispatch(sortBurgerIngredients(sortedIngredients));
 		},
-		[burgerIngredients]
+		[burgerIngredients, dispatch]
 	);
 
 	const ingredientsList = burgerIngredients.map((ing: TIngredient, index) => {
@@ -115,7 +132,7 @@ export const BurgerConstructor = () => {
 						htmlType='button'
 						type='primary'
 						size='medium'
-						onClick={openModal}>
+						onClick={handleOrder}>
 						Оформить заказ
 					</Button>
 				)}

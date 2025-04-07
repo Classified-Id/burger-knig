@@ -17,11 +17,15 @@ export const store = configureStore({
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
+export { rootReducer } from './slices';
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
-export { rootReducer } from './slices';
 
-export { useGetIngredientsQuery } from './slices/api/burger-data.api';
+export {
+	useGetIngredientsQuery,
+	useSendOrderMutation,
+} from './slices/api/burger-data.api';
+
 export {
 	getBurgerIngredients,
 	getBurgerBuns,
