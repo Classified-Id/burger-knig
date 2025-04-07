@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuid4 } from 'uuid';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TIngredient } from '@store';
 
 type TBurgerSliceInitState = {
 	ingredients: TIngredient[];
-	bun: null | [];
+	bun: TIngredient | null;
 };
 
 const initialState: TBurgerSliceInitState = {
@@ -20,13 +21,16 @@ export const burgerIngredientsSlice = createSlice({
 		addBurgerIngredient(state, action: PayloadAction<TIngredient>) {
 			return {
 				...state,
-				ingredients: [...state.ingredients, action.payload],
+				ingredients: [
+					...state.ingredients,
+					{ idKey: uuid4(), ...action.payload },
+				],
 			};
 		},
 		setBurgerBuns(state, action: PayloadAction<TIngredient>) {
 			return {
 				...state,
-				bunt: action.payload,
+				bun: action.payload,
 			};
 		},
 		deleteBurgerIngredient(state, action: PayloadAction<number>) {

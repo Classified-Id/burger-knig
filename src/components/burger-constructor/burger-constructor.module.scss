@@ -4,6 +4,11 @@
 	gap: 10px;
 	width: 600px;
 	align-items: flex-end;
+	border: 1px solid transparent;
+}
+
+.dropBorder {
+	border: 1px solid #535bf2;
 }
 
 .list {

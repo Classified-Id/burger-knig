@@ -1,6 +1,17 @@
+import { useMemo } from 'react';
 import { clsx } from 'clsx';
+import { useDrop } from 'react-dnd';
 
-import { setShowOrderModal, useAppDispatch } from '@store';
+import {
+	useAppDispatch,
+	useAppSelector,
+	setShowOrderModal,
+	getBurgerIngredients,
+	getBurgerBuns,
+	setBurgerBuns,
+	addBurgerIngredient,
+	deleteBurgerIngredient,
+} from '@store';
 
 import {
 	Button,
@@ -11,87 +22,92 @@ import {
 
 import styles from './burger-constructor.module.scss';
 
+import type { TIngredient } from '@store';
+
 export const BurgerConstructor = () => {
 	const dispatch = useAppDispatch();
+	const buns = useAppSelector(getBurgerBuns);
+	const burgerIngredients = useAppSelector(getBurgerIngredients);
+
+	const price = useMemo(() => {
+		return (
+			burgerIngredients.reduce((acc, ingr) => acc + ingr.price, 0) +
+			(buns?.price || 0) * 2
+		);
+	}, [burgerIngredients, buns]);
+
+	const [{ isOver }, dropRef] = useDrop({
+		accept: 'ingredient',
+		drop(item: TIngredient) {
+			if (item.type === 'bun') {
+				dispatch(setBurgerBuns(item));
+			} else {
+				dispatch(addBurgerIngredient(item));
+			}
+		},
+		collect: (monitor) => ({
+			isOver: monitor.isOver(),
+		}),
+	});
 
 	const openModal = () => dispatch(setShowOrderModal(true));
+	const elements = burgerIngredients.map((item, index) => {
+		return (
+			<li className={styles.listElement} key={item.idKey}>
+				<DragIcon type={'primary'} />
+				<ConstructorElement
+					isLocked={false}
+					text={item.name}
+					price={item.price}
+					thumbnail={item.image}
+					handleClose={() => dispatch(deleteBurgerIngredient(index))}
+				/>
+			</li>
+		);
+	});
 
 	return (
-		<section className={clsx('pt-25', styles.burgerConstructor)}>
-			<ConstructorElement
-				type='top'
-				isLocked={true}
-				extraClass={styles.buns}
-				text='Краторная булка N-200i (верх)'
-				price={200}
-				thumbnail={'https://code.s3.yandex.net/react/code/bun-01.png'}
-			/>
-			<ul className={styles.list}>
-				<li className={styles.listElement}>
-					<DragIcon type={'primary'} />
-					<ConstructorElement
-						isLocked={false}
-						text='Соус Spicy-X'
-						price={90}
-						thumbnail={'https://code.s3.yandex.net/react/code/sauce-02.png'}
-					/>
-				</li>
-				<li className={styles.listElement}>
-					<DragIcon type={'primary'} />
-					<ConstructorElement
-						isLocked={false}
-						text='Соус фирменный Space Sauce'
-						price={80}
-						thumbnail={'https://code.s3.yandex.net/react/code/sauce-04.png'}
-					/>
-				</li>
-				<li className={styles.listElement}>
-					<DragIcon type={'primary'} />
-					<ConstructorElement
-						isLocked={false}
-						text='Биокотлета из марсианской Магнолии'
-						price={424}
-						thumbnail={'https://code.s3.yandex.net/react/code/meat-01.png'}
-					/>
-				</li>
-				<li className={styles.listElement}>
-					<DragIcon type={'primary'} />
-					<ConstructorElement
-						isLocked={false}
-						text='Говяжий метеорит (отбивная)'
-						price={3000}
-						thumbnail={'https://code.s3.yandex.net/react/code/meat-04.png'}
-					/>
-				</li>
-				<li className={styles.listElement}>
-					<DragIcon type={'primary'} />
-					<ConstructorElement
-						isLocked={false}
-						text='Мини-салат Экзо-Плантаго'
-						price={4400}
-						thumbnail={'https://code.s3.yandex.net/react/code/salad.png'}
-					/>
-				</li>
-			</ul>
-			<ConstructorElement
-				type='bottom'
-				isLocked={true}
-				extraClass={styles.buns}
-				text='Краторная булка N-200i (низ)'
-				price={200}
-				thumbnail={'https://code.s3.yandex.net/react/code/bun-01.png'}
-			/>
+		<section
+			ref={dropRef}
+			className={clsx('pt-25', styles.burgerConstructor, {
+				[styles.dropBorder]: isOver,
+			})}>
+			{buns && (
+				<ConstructorElement
+					type='top'
+					isLocked={true}
+					extraClass={styles.buns}
+					text={buns.name}
+					price={buns.price}
+					thumbnail={buns.image}
+				/>
+			)}
+
+			<ul className={styles.list}>{elements}</ul>
+
+			{buns && (
+				<ConstructorElement
+					type='bottom'
+					isLocked={true}
+					extraClass={styles.buns}
+					text={buns.name}
+					price={buns.price}
+					thumbnail={buns.image}
+				/>
+			)}
 
 			<div className={clsx(styles.placeAnOrder, 'mt-10')}>
-				<span className='text text_type_digits-medium'>610</span>
+				<span className='text text_type_digits-medium'>{price}</span>
 				<CurrencyIcon type='primary' className={'mr-10'} />
-				<Button
-					htmlType='button'
-					type='primary'
-					size='medium'
-					onClick={openModal}>
-					Оформить заказ
-				</Button>
+				{price > 0 && (
+					<Button
+						htmlType='button'
+						type='primary'
+						size='medium'
+						onClick={openModal}>
+						Оформить заказ
+					</Button>
+				)}
 			</div>
 		</section>
 	);

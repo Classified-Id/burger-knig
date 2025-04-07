@@ -1,7 +1,6 @@
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { useAppSelector, getBurgerIngredients } from '@store';
 import { AppHeader } from '@components/app-header/app-header';
 import { ModalIngredient } from '@components/modalIngredient/modalIngredient';
 import { ModalOrder } from '@components/modalOrder/modalOrder';
@@ -11,9 +10,6 @@ import { BurgerConstructor } from '@components/burger-constructor/burger-constru
 import styles from './app.module.scss';
 
 export const App = () => {
-	const burgerData = useAppSelector(getBurgerIngredients);
-	console.log(burgerData);
-
 	return (
 		<div className={styles.main}>
 			<AppHeader />

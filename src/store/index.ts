@@ -26,6 +26,12 @@ export {
 	getBurgerIngredients,
 	getBurgerBuns,
 } from './slices/burgerIngredients/burgerIngredients.selector';
+export {
+	addBurgerIngredient,
+	setBurgerBuns,
+	deleteBurgerIngredient,
+	sortBurgerIngredients,
+} from './slices/burgerIngredients/burgerIngredients.slice';
 
 export {
 	getCurrentIngredient,
