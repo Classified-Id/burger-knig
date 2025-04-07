@@ -34,7 +34,7 @@ export const ProductsList = forwardRef<HTMLHeadingElement, ProductsListProps>(
 						{data.map((ingredient) => {
 							return (
 								<li key={ingredient._id} className={styles.listElement}>
-									<Product data={ingredient} />
+									<Product ingredient={ingredient} />
 								</li>
 							);
 						})}

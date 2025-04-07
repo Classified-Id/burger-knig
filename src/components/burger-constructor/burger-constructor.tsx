@@ -1,8 +1,6 @@
 import { clsx } from 'clsx';
 
-import { Modal } from '@components/modal';
-import { OrderDetails } from '@components/order-details/order-details';
-import { useModal } from '@hooks/useModal';
+import { setShowOrderModal, useAppDispatch } from '@store';
 
 import {
 	Button,
@@ -14,7 +12,9 @@ import {
 import styles from './burger-constructor.module.scss';
 
 export const BurgerConstructor = () => {
-	const { isModalOpen, openModal, closeModal } = useModal();
+	const dispatch = useAppDispatch();
+
+	const openModal = () => dispatch(setShowOrderModal(true));
 
 	return (
 		<section className={clsx('pt-25', styles.burgerConstructor)}>
@@ -93,12 +93,6 @@ export const BurgerConstructor = () => {
 					Оформить заказ
 				</Button>
 			</div>
-
-			{isModalOpen && (
-				<Modal onClose={closeModal}>
-					<OrderDetails />
-				</Modal>
-			)}
 		</section>
 	);
 };
