@@ -30,7 +30,6 @@ export const BurgerConstructor = () => {
 	const buns = useAppSelector(getBurgerBuns);
 	const burgerIngredients = useAppSelector(getBurgerIngredients);
 
-	// const [sendOrder, { isLoading, isError, error, isSuccess, reset }] =
 	const [sendOrder] = useSendOrderMutation();
 	const price = useMemo(() => {
 		return (
