@@ -10,6 +10,8 @@ export type TIngredient = {
 	proteins: number;
 	type: 'bun' | 'main' | 'sauce';
 	_id: string;
+	idKey?: string;
+	index?: number;
 };
 
 export type TIngredientsResponse = {

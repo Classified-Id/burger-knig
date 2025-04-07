@@ -1,41 +1,31 @@
 import { clsx } from 'clsx';
+import { forwardRef } from 'react';
 
 import { Product } from '@components/product/product';
 
 import styles from './products-list.module.scss';
 
-import type { FC, ReactNode } from 'react';
-import type { TIngredient } from '@store';
+import type { ProductsListProps } from './products-list.props';
 
-interface ProductsListProps {
-	children: ReactNode;
-	data: TIngredient[];
-}
-
-export const ProductsList: FC<ProductsListProps> = ({ data, children }) => {
-	return (
-		<>
-			<h2 className={clsx(styles.title, 'text text_type_main-medium')}>
-				{children}
-			</h2>
-			<div
-				className={clsx(
-					styles.ingredientsBox,
-					'mt-6',
-					'ml-4',
-					'mr-4',
-					'mb-10'
-				)}>
-				<ul className={clsx(styles.list, 'list')}>
+export const ProductsList = forwardRef<HTMLHeadingElement, ProductsListProps>(
+	({ data, children }, ref) => {
+		return (
+			<>
+				<h2 ref={ref} className={'text text_type_main-medium mb-6'}>
+					{children}
+				</h2>
+				<ul className={clsx(styles.list, 'list mb-6')}>
 					{data.map((ingredient) => {
 						return (
 							<li key={ingredient._id} className={styles.listElement}>
-								<Product data={ingredient} />
+								<Product ingredient={ingredient} />
 							</li>
 						);
 					})}
 				</ul>
-			</div>
-		</>
-	);
-};
+			</>
+		);
+	}
+);
+
+ProductsList.displayName = 'ProductsList';

@@ -21,17 +21,12 @@
 	gap: 8px;
 }
 
-.title {
-	margin: 0;
-}
-
 .list {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
 	padding: 0;
 	overflow-y: auto;
-	height: calc(100vh - 450px);
 	align-content: flex-start;
 
 	&::-webkit-scrollbar {

@@ -1,22 +1,55 @@
 import { clsx } from 'clsx';
+import { useDrag } from 'react-dnd';
+import {
+	CurrencyIcon,
+	Counter,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
-import { Modal } from '@components/modal';
-import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
-import { useModal } from '@hooks/useModal';
+import {
+	useAppDispatch,
+	setShowModal,
+	setIngredient,
+	useAppSelector,
+	getBurgerBuns,
+	getBurgerIngredients,
+} from '@store';
 
 import styles from './product.module.scss';
 
 import type { FC } from 'react';
-import type { TIngredient } from '@store';
+import type { ProductType } from './product.props';
 
-type ProductType = {
-	data: TIngredient;
-};
+export const Product: FC<ProductType> = ({ ingredient }) => {
+	const dispatch = useAppDispatch();
 
-export const Product: FC<ProductType> = ({ data }) => {
-	const { isModalOpen, openModal, closeModal } = useModal();
+	const buns = useAppSelector(getBurgerBuns);
+	const burgerIngredients = useAppSelector(getBurgerIngredients);
+
+	const [, dragRef] = useDrag({
+		type: 'ingredient',
+		item: ingredient,
+	});
+
+	const openModal = () => {
+		dispatch(setIngredient(ingredient));
+		dispatch(setShowModal(true));
+	};
+
+	const setCounter = () => {
+		if (ingredient.type !== 'bun') {
+			return (
+				burgerIngredients &&
+				burgerIngredients.reduce(
+					(acc, item) => acc + +(item._id === ingredient._id),
+					0
+				)
+			);
+		} else if (buns?._id === ingredient._id) {
+			return 2;
+		} else return 0;
+	};
+
+	const counter = setCounter();
 
 	return (
 		<>
@@ -24,29 +57,31 @@ export const Product: FC<ProductType> = ({ data }) => {
 				onClick={openModal}
 				role={'button'}
 				tabIndex={0}
+				ref={dragRef}
 				className={styles.cardWrapper}>
 				<figure className={styles.card}>
-					<img src={data.image} alt={data.name} className={'ml-4 mr-4 mb-1'} />
+					{counter > 0 ? (
+						<Counter size={'default'} count={setCounter()} />
+					) : null}
+					<img
+						src={ingredient.image}
+						alt={ingredient.name}
+						className={'ml-4 mr-4 mb-1'}
+					/>
 					<figcaption
 						className={clsx(
 							'mb-1 text text_type_digits-default',
 							styles.signature
 						)}>
-						{data.price}
+						{ingredient.price}
 						<CurrencyIcon type='primary' />
 					</figcaption>
 					<figcaption
 						className={clsx('text text_type_main-small', styles.signature)}>
-						{data.name}
+						{ingredient.name}
 					</figcaption>
 				</figure>
 			</div>
-
-			{isModalOpen && (
-				<Modal onClose={closeModal} header={'Детали ингредиента'}>
-					<IngredientDetails ingredient={data} />
-				</Modal>
-			)}
 		</>
 	);
 };
