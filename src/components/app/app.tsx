@@ -1,26 +1,142 @@
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Route, Routes, useLocation } from 'react-router-dom';
+
+// import { useAppDispatch } from '@store';
 
 import { AppHeader } from '@components/app-header/app-header';
 import { ModalIngredient } from '@components/modalIngredient/modalIngredient';
 import { ModalOrder } from '@components/modalOrder/modalOrder';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
+import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
+
+import {
+	ForgotPassPage,
+	// IngredientPage,
+	ResetPassPage,
+	RegisterPage,
+	ProfilePage,
+	LoginPage,
+	// ErrorPage,
+} from '@pages/index';
 
 import styles from './app.module.scss';
 
 export const App = () => {
+	// const dispatch = useAppDispatch();
+	// const navigate = useNavigate();
+	const location = useLocation();
+	const backgroundStateLocation = location?.state?.background;
+
+	//todo тут будут вызываться основные запросы на получение данных о ингредиентах, авторизации, заказах и т.д.
+
 	return (
 		<div className={styles.main}>
 			<AppHeader />
-			<DndProvider backend={HTML5Backend}>
-				<main className={styles.content}>
-					<BurgerIngredients />
-					<BurgerConstructor />
-				</main>
-			</DndProvider>
-			<ModalIngredient />
-			<ModalOrder />
+
+			<Routes location={backgroundStateLocation || location}>
+				<Route
+					path='/'
+					element={
+						<>
+							<DndProvider backend={HTML5Backend}>
+								<main className={styles.content}>
+									<BurgerIngredients />
+									<BurgerConstructor />
+								</main>
+							</DndProvider>
+							<ModalIngredient />
+							<ModalOrder />
+						</>
+					}
+				/>
+
+				<Route path='/ingredients/:id' element={<ModalIngredient />} />
+
+				<Route
+					path='/profile'
+					element={
+						<ProtectedRoute path='/profile' forAuth exact>
+							<ProfilePage />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path='/profile/orders/:number'
+					element={
+						<ProtectedRoute path='/profile/orders' forAuth exact>
+							<ModalOrder />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path='/login'
+					element={
+						<ProtectedRoute path='/login' forAuth={false} exact>
+							<LoginPage />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path='/forgot-password'
+					element={
+						<ProtectedRoute path='/forgot-password' forAuth={false} exact>
+							<ForgotPassPage />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path='/reset-password'
+					element={
+						<ProtectedRoute path='/reset-password' forAuth={false} exact>
+							<ResetPassPage />
+						</ProtectedRoute>
+					}
+				/>
+
+				<Route
+					path='/register'
+					element={
+						<ProtectedRoute path='/register' forAuth={false} exact>
+							<RegisterPage />
+						</ProtectedRoute>
+					}
+				/>
+
+				{backgroundStateLocation && (
+					<Route path='/ingredients/:id'>
+						<IngredientDetails />
+					</Route>
+				)}
+				{backgroundStateLocation && (
+					<Route path='/feed/:id'>
+						<ModalOrder />
+					</Route>
+				)}
+				{backgroundStateLocation && (
+					<Route path='/profile/orders/:id'>
+						<ModalOrder />
+					</Route>
+				)}
+			</Routes>
+
+			{/*//todo не знаю пока что с ними*/}
+			{/*<IngredientPage />*/}
+			{/*<ErrorPage />*/}
+
+			{/*<RegisterPage />*/}
+			{/*<ResetPassPage />*/}
+			{/*<ForgotPassPage />*/}
+			{/*<LoginPage />*/}
+			{/*<ModalOrder />*/}
+			{/*<ModalIngredient />*/}
+			{/*<ProfilePage />*/}
 		</div>
 	);
 };

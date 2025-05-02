@@ -6,15 +6,15 @@ import type { FC } from 'react';
 import type { TIngredient } from '@store';
 
 type IngredientProps = {
-	ingredient: TIngredient;
+	ingredient?: TIngredient;
 };
 
 export const IngredientDetails: FC<IngredientProps> = ({ ingredient }) => {
 	return (
 		<section className={styles.productPortal}>
 			<img
-				src={ingredient.image_large}
-				alt={ingredient.name}
+				src={ingredient?.image_large}
+				alt={ingredient?.name}
 				className={styles.image}
 			/>
 			<span className='text text_type_main-medium'>{ingredient?.name}</span>

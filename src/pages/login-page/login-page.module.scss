@@ -1,0 +1,28 @@
+.loginPageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 160px;
+}
+
+.loginForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.actions {
+	display: flex;
+	gap: 8px;
+}
+
+.actions:last-child {
+	margin-top: 16px;
+}
+
+.buttonLink {
+	padding: 0;
+}

@@ -70,7 +70,7 @@ export const BurgerConstructor = () => {
 		(dragIndex: number, hoverIndex: number) => {
 			dispatch(sortBurgerIngredients({ dragIndex, hoverIndex }));
 		},
-		[burgerIngredients, dispatch]
+		[dispatch]
 	);
 
 	const ingredientsList = burgerIngredients.map((ing: TIngredient, index) => {
