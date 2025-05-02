@@ -14,12 +14,11 @@ import { IngredientDetails } from '@components/ingredient-details/ingredient-det
 
 import {
 	ForgotPassPage,
-	// IngredientPage,
 	ResetPassPage,
 	RegisterPage,
 	ProfilePage,
 	LoginPage,
-	// ErrorPage,
+	ErrorPage,
 } from '@pages/index';
 
 import styles from './app.module.scss';
@@ -53,21 +52,22 @@ export const App = () => {
 					}
 				/>
 
-				<Route path='/ingredients/:id' element={<ModalIngredient />} />
+				<Route path='/ingredients/:id' element={<IngredientDetails />} />
 
 				<Route
 					path='/profile'
 					element={
-						<ProtectedRoute path='/profile' forAuth exact>
-							<ProfilePage />
-						</ProtectedRoute>
+						// <ProtectedRoute path='/profile' forAuth>
+						// 	<ProfilePage />
+						// </ProtectedRoute>
+						<ProfilePage />
 					}
 				/>
 
 				<Route
 					path='/profile/orders/:number'
 					element={
-						<ProtectedRoute path='/profile/orders' forAuth exact>
+						<ProtectedRoute path='/profile/orders' forAuth>
 							<ModalOrder />
 						</ProtectedRoute>
 					}
@@ -76,7 +76,7 @@ export const App = () => {
 				<Route
 					path='/login'
 					element={
-						<ProtectedRoute path='/login' forAuth={false} exact>
+						<ProtectedRoute path='/login'>
 							<LoginPage />
 						</ProtectedRoute>
 					}
@@ -85,7 +85,7 @@ export const App = () => {
 				<Route
 					path='/forgot-password'
 					element={
-						<ProtectedRoute path='/forgot-password' forAuth={false} exact>
+						<ProtectedRoute path='/forgot-password'>
 							<ForgotPassPage />
 						</ProtectedRoute>
 					}
@@ -94,7 +94,7 @@ export const App = () => {
 				<Route
 					path='/reset-password'
 					element={
-						<ProtectedRoute path='/reset-password' forAuth={false} exact>
+						<ProtectedRoute path='/reset-password'>
 							<ResetPassPage />
 						</ProtectedRoute>
 					}
@@ -103,7 +103,7 @@ export const App = () => {
 				<Route
 					path='/register'
 					element={
-						<ProtectedRoute path='/register' forAuth={false} exact>
+						<ProtectedRoute path='/register'>
 							<RegisterPage />
 						</ProtectedRoute>
 					}
@@ -111,7 +111,7 @@ export const App = () => {
 
 				{backgroundStateLocation && (
 					<Route path='/ingredients/:id'>
-						<IngredientDetails />
+						<ModalIngredient />
 					</Route>
 				)}
 				{backgroundStateLocation && (
@@ -124,19 +124,9 @@ export const App = () => {
 						<ModalOrder />
 					</Route>
 				)}
+
+				<Route path='*' element={<ErrorPage />} />
 			</Routes>
-
-			{/*//todo не знаю пока что с ними*/}
-			{/*<IngredientPage />*/}
-			{/*<ErrorPage />*/}
-
-			{/*<RegisterPage />*/}
-			{/*<ResetPassPage />*/}
-			{/*<ForgotPassPage />*/}
-			{/*<LoginPage />*/}
-			{/*<ModalOrder />*/}
-			{/*<ModalIngredient />*/}
-			{/*<ProfilePage />*/}
 		</div>
 	);
 };

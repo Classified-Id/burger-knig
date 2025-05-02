@@ -7,17 +7,21 @@ import type { FC, ReactNode } from 'react';
 
 type TProtectedRoute = {
 	children: ReactNode;
-	forAuth: boolean;
-	exact: boolean;
+	forAuth?: boolean;
 	path: string;
 };
 
-export const ProtectedRoute: FC<TProtectedRoute> = ({ forAuth, children }) => {
+export const ProtectedRoute: FC<TProtectedRoute> = ({
+	forAuth = false,
+	children,
+}) => {
+	const user = null;
 	const isAuthorized = getCookie('accessToken');
 	const location = useLocation();
 
 	console.log('forAuth', forAuth);
 	console.log('isAuthorized', isAuthorized);
+	console.log('user', user);
 
 	if (!forAuth && isAuthorized) {
 		console.log(1);
@@ -25,7 +29,7 @@ export const ProtectedRoute: FC<TProtectedRoute> = ({ forAuth, children }) => {
 			from: { pathname: '/' },
 		};
 
-		return <Navigate to={from?.pathname || ''} replace />;
+		return <Navigate to={from?.pathname || '/'} replace />;
 	}
 
 	if (forAuth && !isAuthorized) {
