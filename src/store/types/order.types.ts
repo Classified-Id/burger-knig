@@ -9,7 +9,7 @@ export type TOrderSliceInitState = {
 	showOrderModal: boolean;
 };
 
-export type TForgotPassResponse = {
+export type TForgotAndNewPassResponse = {
 	success: boolean;
 	message: string;
 };

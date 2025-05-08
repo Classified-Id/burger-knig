@@ -14,6 +14,7 @@ import styles from './forgot-pass-page.module.scss';
 
 export const ForgotPassPage: FC = () => {
 	const navigate = useNavigate();
+
 	const [email, setEmail] = useState('');
 
 	const [sendCodeRequest] = useSendEmailCodeMutation();

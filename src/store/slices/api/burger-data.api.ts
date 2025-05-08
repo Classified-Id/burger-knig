@@ -1,18 +1,27 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { INGREDIENTS_URL, ORDER_URL, GET_RESET_CODE_URL } from '@constants';
+import {
+	BASE_URL,
+	INGREDIENTS_URL,
+	ORDER_URL,
+	GET_RESET_CODE_URL,
+	RESET_PASSWORD_URL,
+} from '@constants';
 import { setOrderData } from '@store';
 
 import type {
 	TIngredientsResponse,
 	TTransformedResponse,
 } from '../../types/ingredients.types';
-import type { TOrder, TForgotPassResponse } from '../../types/order.types';
+import type {
+	TOrder,
+	TForgotAndNewPassResponse,
+} from '../../types/order.types';
 
 export const burgerDataApi = createApi({
 	reducerPath: 'burgerDataApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: '',
+		baseUrl: BASE_URL,
 		prepareHeaders: (headers) => {
 			headers.set('Content-Type', 'application/json');
 			return headers;
@@ -58,12 +67,25 @@ export const burgerDataApi = createApi({
 				}
 			},
 		}),
-		sendEmailCode: build.mutation<TForgotPassResponse, string>({
+		sendEmailCode: build.mutation<TForgotAndNewPassResponse, string>({
 			query: (email: string) => ({
 				url: GET_RESET_CODE_URL,
 				method: 'POST',
 				body: {
 					email: email,
+				},
+			}),
+		}),
+		sendNewPassword: build.mutation<
+			TForgotAndNewPassResponse,
+			{ password: string; token: string }
+		>({
+			query: ({ password, token }) => ({
+				url: '/password-reset/reset',
+				method: 'POST',
+				body: {
+					password: password,
+					token: token,
 				},
 			}),
 		}),
@@ -74,4 +96,7 @@ export const {
 	useGetIngredientsQuery,
 	useSendOrderMutation,
 	useSendEmailCodeMutation,
+	useSendNewPasswordMutation,
 } = burgerDataApi;
+
+

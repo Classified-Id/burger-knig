@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { clsx } from 'clsx';
 
-import { Link } from 'react-router-dom';
+import { useSendNewPasswordMutation } from '@store';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	Logo,
 	Input,
@@ -13,19 +14,34 @@ import type { SyntheticEvent } from 'react';
 import styles from './reset-pass-page.module.scss';
 
 export const ResetPassPage = () => {
+	const navigate = useNavigate();
+
 	const [password, setPassword] = useState('');
 	const [token, setToken] = useState('');
 
+	const [newPassRequest] = useSendNewPasswordMutation();
+
 	const handleSubmit = (e: SyntheticEvent) => {
-		console.log(e);
-		//todo функция в ртк
+		e.preventDefault();
+
+		newPassRequest({ password: password, token: token })
+			.unwrap()
+			.then((res) => {
+				alert('пароль успешно изменён');
+				if (res.success) navigate('/login', { replace: true });
+			})
+			.catch((err) => {
+				console.error(err.message);
+			});
 	};
 
 	return (
 		<article className={clsx(styles.loginWrapper, 'mt-25')}>
 			<Logo />
 
-			<form className={styles.loginInputs} onSubmit={handleSubmit}>
+			<form
+				className={clsx(styles.loginInputs, 'mt-10')}
+				onSubmit={handleSubmit}>
 				<h3 className='text text_type_main-medium'>Восстановление пароля</h3>
 				<Input
 					onChange={(event) => setPassword(event.target.value)}
@@ -45,10 +61,10 @@ export const ResetPassPage = () => {
 				</Button>
 			</form>
 
-			<div className={styles.loginActions}>
+			<div className={clsx(styles.loginActions, 'mt-20')}>
 				<span className='text text_type_main-default text_color_inactive'>
 					Вспомнили пароль?
-					<Link to='/register' className='text pl-2 text_type_main-default'>
+					<Link to='/login' className='text pl-2 text_type_main-default'>
 						Войти
 					</Link>
 				</span>
