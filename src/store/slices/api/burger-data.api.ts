@@ -81,7 +81,7 @@ export const burgerDataApi = createApi({
 			{ password: string; token: string }
 		>({
 			query: ({ password, token }) => ({
-				url: '/password-reset/reset',
+				url: RESET_PASSWORD_URL,
 				method: 'POST',
 				body: {
 					password: password,
@@ -98,5 +98,3 @@ export const {
 	useSendEmailCodeMutation,
 	useSendNewPasswordMutation,
 } = burgerDataApi;
-
-

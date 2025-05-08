@@ -8,8 +8,10 @@ import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Notify } from '@components/notify/notify';
 
 import type { SyntheticEvent } from 'react';
+import type { TNewPasswordError } from '../../store/types/user.types';
 
 import styles from './reset-pass-page.module.scss';
 
@@ -19,24 +21,24 @@ export const ResetPassPage = () => {
 	const [password, setPassword] = useState('');
 	const [token, setToken] = useState('');
 
-	const [newPassRequest] = useSendNewPasswordMutation();
+	const [sendNewPassword, { error }] = useSendNewPasswordMutation();
 
-	const handleSubmit = (e: SyntheticEvent) => {
+	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
 
-		newPassRequest({ password: password, token: token })
+		sendNewPassword({ password, token })
 			.unwrap()
 			.then((res) => {
-				alert('пароль успешно изменён');
+				alert('Пароль успешно изменён');
 				if (res.success) navigate('/login', { replace: true });
 			})
-			.catch((err) => {
-				console.error(err.message);
-			});
+			.catch((err: TNewPasswordError) => console.error(err.data.message));
 	};
 
 	return (
 		<article className={clsx(styles.loginWrapper, 'mt-25')}>
+			{error && <Notify message={(error as TNewPasswordError).data.message} />}
+
 			<Logo />
 
 			<form
@@ -56,7 +58,11 @@ export const ResetPassPage = () => {
 					value={token}
 				/>
 
-				<Button htmlType={'submit'} type='primary' size='small'>
+				<Button
+					htmlType={'submit'}
+					type='primary'
+					size='small'
+					disabled={!password || !token}>
 					<p className='text text_type_main-default'>Сохранить</p>
 				</Button>
 			</form>
