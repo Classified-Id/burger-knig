@@ -24,6 +24,7 @@ export type AppDispatch = typeof store.dispatch;
 export {
 	useGetIngredientsQuery,
 	useSendOrderMutation,
+	useSendEmailCodeMutation,
 } from './slices/api/burger-data.api';
 
 export {

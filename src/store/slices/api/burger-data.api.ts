@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { INGREDIENTS_URL, ORDER_URL } from '@constants';
+import { INGREDIENTS_URL, ORDER_URL, GET_RESET_CODE_URL } from '@constants';
 import { setOrderData } from '@store';
 
 import type {
 	TIngredientsResponse,
 	TTransformedResponse,
 } from '../../types/ingredients.types';
-import type { TOrder } from '../../types/order.types';
+import type { TOrder, TForgotPassResponse } from '../../types/order.types';
 
 export const burgerDataApi = createApi({
 	reducerPath: 'burgerDataApi',
@@ -58,7 +58,20 @@ export const burgerDataApi = createApi({
 				}
 			},
 		}),
+		sendEmailCode: build.mutation<TForgotPassResponse, string>({
+			query: (email: string) => ({
+				url: GET_RESET_CODE_URL,
+				method: 'POST',
+				body: {
+					email: email,
+				},
+			}),
+		}),
 	}),
 });
 
-export const { useGetIngredientsQuery, useSendOrderMutation } = burgerDataApi;
+export const {
+	useGetIngredientsQuery,
+	useSendOrderMutation,
+	useSendEmailCodeMutation,
+} = burgerDataApi;

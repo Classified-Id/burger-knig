@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 
+import { useSendEmailCodeMutation } from '@store';
 import {
 	Button,
 	EmailInput,
@@ -13,22 +14,27 @@ import styles from './forgot-pass-page.module.scss';
 
 export const ForgotPassPage: FC = () => {
 	const navigate = useNavigate();
-	const [valEmail, setValEmail] = useState('');
+	const [email, setEmail] = useState('');
+
+	const [sendCodeRequest] = useSendEmailCodeMutation();
 
 	const onSubmit: MouseEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 
-		console.log(valEmail);
-
-		//todo тут будет вызов запроса из рткшки и его обработка
-
-		navigate('/reset-password', { replace: true });
+		sendCodeRequest(email)
+			.unwrap()
+			.then((res) => {
+				if (res.success) navigate('/reset-password', { replace: true });
+			})
+			.catch((err) => {
+				console.error(err.message);
+			});
 	};
 
 	const login = () => navigate('/login', { replace: true });
 
 	const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-		setValEmail(e.target.value);
+		setEmail(e.target.value);
 	};
 
 	return (
@@ -38,7 +44,7 @@ export const ForgotPassPage: FC = () => {
 				<EmailInput
 					placeholder={'Укажите e-mail'}
 					onChange={handleEmail}
-					value={valEmail}
+					value={email}
 					name={'email'}
 				/>
 				<Button type={'primary'} htmlType={'submit'}>
