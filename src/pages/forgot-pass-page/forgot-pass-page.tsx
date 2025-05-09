@@ -7,8 +7,10 @@ import {
 	Button,
 	EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Notify } from '@components/notify/notify';
 
 import type { FC, MouseEventHandler, ChangeEvent } from 'react';
+import type { TNewPasswordError } from '../../store/types/user.types';
 
 import styles from './forgot-pass-page.module.scss';
 
@@ -17,7 +19,7 @@ export const ForgotPassPage: FC = () => {
 
 	const [email, setEmail] = useState('');
 
-	const [sendCodeRequest] = useSendEmailCodeMutation();
+	const [sendCodeRequest, { error }] = useSendEmailCodeMutation();
 
 	const onSubmit: MouseEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
@@ -27,9 +29,7 @@ export const ForgotPassPage: FC = () => {
 			.then((res) => {
 				if (res.success) navigate('/reset-password', { replace: true });
 			})
-			.catch((err) => {
-				console.error(err.message);
-			});
+			.catch((err: TNewPasswordError) => console.error(err.data.message));
 	};
 
 	const login = () => navigate('/login', { replace: true });
@@ -40,6 +40,8 @@ export const ForgotPassPage: FC = () => {
 
 	return (
 		<article className={clsx('mt-40', styles.pageContainer)}>
+			{error && <Notify message={'Ошибка отправки кода, попробуйте ещё раз'} />}
+
 			<form className={styles.forgotPassForm} onSubmit={onSubmit}>
 				<h1 className='text text_type_main-medium'>Восстановление пароля</h1>
 				<EmailInput

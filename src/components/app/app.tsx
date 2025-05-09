@@ -11,6 +11,9 @@ import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredi
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
+// import { ProfileForm } from '@components/profile-form/profile-form';
+// import { OrderHistory } from '@components/order-history/order-history';
+// import { OrderDetails } from '@components/order-details/order-details';
 
 import {
 	ForgotPassPage,
