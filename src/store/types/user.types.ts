@@ -29,3 +29,25 @@ export type TLoginProps = {
 	email: string;
 	password: string;
 };
+
+export type TUser = {
+	success: boolean;
+	user: {
+		email: string;
+		name: string;
+	};
+};
+
+export type TUpdateUserProps = {
+	name: string;
+	email: string;
+	password: string;
+};
+
+export type TUpdateUserResponse = {
+	user: {
+		email: string;
+		name: string;
+	};
+	success: boolean;
+};

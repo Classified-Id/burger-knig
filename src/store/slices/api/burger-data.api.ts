@@ -10,6 +10,7 @@ import {
 	REGISTER_URL,
 	LOGIN_URL,
 	USER_URL,
+	REFRESH_TOKEN_URL,
 } from '@constants';
 import { setOrderData } from '@store';
 
@@ -26,6 +27,9 @@ import type {
 	TRegisterProps,
 	TRegisterResponse,
 	TLoginProps,
+	TUser,
+	TUpdateUserProps,
+	TUpdateUserResponse,
 } from '../../types/user.types';
 
 export const burgerDataApi = createApi({
@@ -110,7 +114,20 @@ export const burgerDataApi = createApi({
 					name,
 				},
 			}),
-			invalidatesTags: ['User'],
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					const accessToken = data.accessToken.split('Bearer ')[1];
+					setCookie('accessToken', accessToken);
+					localStorage.setItem('refreshToken', data.refreshToken);
+
+					setTimeout(() => {
+						dispatch(burgerDataApi.util.invalidateTags(['User']));
+					}, 100);
+				} catch (error) {
+					console.error('Registration failed:', error);
+				}
+			},
 		}),
 		sendLogin: build.mutation<TRegisterResponse, TLoginProps>({
 			query: ({ email, password }) => ({
@@ -136,7 +153,7 @@ export const burgerDataApi = createApi({
 				}
 			},
 		}),
-		getUser: build.query<void, void>({
+		getUser: build.query<TUser, void>({
 			query: () => {
 				return {
 					url: USER_URL,
@@ -147,6 +164,43 @@ export const burgerDataApi = createApi({
 				};
 			},
 			providesTags: ['User'],
+		}),
+		updateUser: build.mutation<TUpdateUserResponse, TUpdateUserProps>({
+			query: ({ email, password, name }) => ({
+				url: USER_URL,
+				method: 'PATCH',
+				body: {
+					name,
+					email,
+					password,
+				},
+				headers: {
+					Authorization: `Bearer ${getCookie('accessToken')}`,
+				},
+			}),
+			async onQueryStarted(arg, { dispatch }) {
+				try {
+					setTimeout(() => {
+						dispatch(burgerDataApi.util.invalidateTags(['User']));
+					}, 100);
+				} catch (error) {
+					console.error('Login failed:', error);
+				}
+			},
+		}),
+		refreshToken: build.mutation<
+			{
+				success: boolean;
+				accessToken: string;
+				refreshToken: string;
+			},
+			{ token: string }
+		>({
+			query: ({ token }) => ({
+				url: REFRESH_TOKEN_URL,
+				method: 'POST',
+				body: { token },
+			}),
 		}),
 	}),
 });
@@ -159,4 +213,5 @@ export const {
 	useSendRegisterMutation,
 	useSendLoginMutation,
 	useGetUserQuery,
+	useUpdateUserMutation,
 } = burgerDataApi;

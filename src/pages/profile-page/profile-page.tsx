@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useAppDispatch } from '@store';
+import { useGetUserQuery, useUpdateUserMutation } from '@store';
 import { Nav } from './nav';
 import {
 	Input,
@@ -12,37 +12,60 @@ import type { SyntheticEvent } from 'react';
 import styles from './profile-page.module.scss';
 
 export const ProfilePage = () => {
-	const dispatch = useAppDispatch();
+	const { data: user, isSuccess } = useGetUserQuery();
+	const [updateUserRequest] = useUpdateUserMutation();
+
 	const initialState = {
 		name: '',
 		email: '',
 		password: '',
 	};
-	const [defaultState, setDefaultState] = useState(initialState);
-	const [state, setState] = useState(initialState);
 
-	const handleStateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const target = e.target;
-		setState({
-			...state,
-			[target.name]: target.value,
-		});
+	const [formData, setFormData] = useState(initialState);
+	const [isDirty, setIsDirty] = useState(false);
+
+	useEffect(() => {
+		if (isSuccess && user) {
+			setFormData({
+				name: user.user?.name || '',
+				email: user.user?.email || '',
+				password: '',
+			});
+		}
+	}, [isSuccess, user]);
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({
+			...prev,
+			[name]: value,
+		}));
+		setIsDirty(true);
 	};
 
 	const handleSubmit = (e: SyntheticEvent) => {
+		console.log(1111);
 		e.preventDefault();
-		// отправка данных на обновление
+		if (!isDirty) return;
+		console.log(2222);
+		updateUserRequest({
+			name: formData.name,
+			email: formData.email,
+			password: formData.password,
+		});
 	};
 
 	const handleReset = (e: SyntheticEvent) => {
 		e.preventDefault();
-		setState(defaultState);
+		if (user) {
+			setFormData({
+				name: user.user?.name || '',
+				email: user.user?.email || '',
+				password: '',
+			});
+		}
+		setIsDirty(false);
 	};
-
-	useEffect(() => {
-		setDefaultState(initialState);
-		// мб пригодится
-	}, [dispatch]);
 
 	return (
 		<>
@@ -54,8 +77,8 @@ export const ProfilePage = () => {
 				<div className={styles.navWrapper}>
 					<form className={styles.profileForm} onSubmit={handleSubmit}>
 						<Input
-							onChange={handleStateChange}
-							value={state.name || ''}
+							onChange={handleChange}
+							value={formData.name}
 							placeholder={'Имя'}
 							icon={'EditIcon'}
 							size={'default'}
@@ -63,23 +86,23 @@ export const ProfilePage = () => {
 							name={'name'}
 						/>
 						<Input
-							onChange={handleStateChange}
+							onChange={handleChange}
+							value={formData.email}
 							placeholder={'Email'}
-							value={state.email}
 							icon={'EditIcon'}
-							type={'text'}
+							type={'email'}
 							name={'email'}
 						/>
 						<Input
-							value={state.password || ''}
-							onChange={handleStateChange}
+							onChange={handleChange}
+							value={formData.password}
 							placeholder={'Пароль'}
 							type={'password'}
 							icon={'EditIcon'}
 							name={'password'}
 							size={'default'}
 						/>
-						<Button type='primary' size='small' htmlType='button'>
+						<Button type='primary' size='small' htmlType='submit'>
 							<p className='text text_type_main-default'>Сохранить</p>
 						</Button>
 						<Button

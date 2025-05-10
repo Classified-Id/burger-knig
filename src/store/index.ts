@@ -29,6 +29,7 @@ export {
 	useSendRegisterMutation,
 	useSendLoginMutation,
 	useGetUserQuery,
+	useUpdateUserMutation,
 } from './slices/api/burger-data.api';
 
 export {

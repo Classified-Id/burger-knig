@@ -40,6 +40,7 @@ export const ProfileForm = () => {
 
 	useEffect(() => {
 		// мб пригодится
+		console.log(setDefaultState);
 	}, [dispatch]);
 
 	return (

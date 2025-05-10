@@ -6,3 +6,4 @@ export const RESET_PASSWORD_URL = '/password-reset/reset';
 export const REGISTER_URL = '/auth/register';
 export const LOGIN_URL = '/auth/login';
 export const USER_URL = '/auth/user';
+export const REFRESH_TOKEN_URL = '/auth/token';

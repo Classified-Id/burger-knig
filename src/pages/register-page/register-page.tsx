@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 
-import { setCookie } from '@utils/cookies';
 import { useSendRegisterMutation } from '@store';
 import {
 	Logo,
@@ -27,7 +26,7 @@ export const RegisterPage = () => {
 		password: '',
 	});
 
-	const [sendRegister, { error }] = useSendRegisterMutation();
+	const [sendRegister, { isSuccess, error }] = useSendRegisterMutation();
 
 	const fieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({
@@ -38,18 +37,12 @@ export const RegisterPage = () => {
 
 	const handleSubmit = (e: SyntheticEvent) => {
 		e.preventDefault();
-
-		sendRegister(formData)
-			.unwrap()
-			.then((res) => {
-				const accessToken = res.accessToken.split('Bearer ')[1];
-				setCookie('accessToken', accessToken);
-				localStorage.setItem('refreshToken', res.refreshToken);
-
-				if (res.success) navigate('/login', { replace: true });
-			})
-			.catch((err: TRegisterError) => console.error(err.data.message));
+		sendRegister(formData);
 	};
+
+	useEffect(() => {
+		if (isSuccess) navigate('/login', { replace: true });
+	}, [isSuccess, navigate]);
 
 	return (
 		<>
