@@ -40,7 +40,7 @@ export const ProfilePage = () => {
 	};
 
 	useEffect(() => {
-		console.log(setDefaultState);
+		setDefaultState(initialState);
 		// мб пригодится
 	}, [dispatch]);
 

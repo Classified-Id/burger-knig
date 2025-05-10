@@ -2,8 +2,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-// import { useAppDispatch } from '@store';
-
+import { useGetUserQuery } from '@store';
 import { AppHeader } from '@components/app-header/app-header';
 import { ModalIngredient } from '@components/modalIngredient/modalIngredient';
 import { ModalOrder } from '@components/modalOrder/modalOrder';
@@ -27,10 +26,11 @@ import {
 import styles from './app.module.scss';
 
 export const App = () => {
-	// const dispatch = useAppDispatch();
-	// const navigate = useNavigate();
 	const location = useLocation();
 	const backgroundStateLocation = location?.state?.background;
+
+	const { data: user } = useGetUserQuery();
+	console.log('user!', user);
 
 	//todo тут будут вызываться основные запросы на получение данных о ингредиентах, авторизации, заказах и т.д.
 

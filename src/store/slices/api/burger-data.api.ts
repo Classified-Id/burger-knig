@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getCookie, setCookie } from '@utils/cookies';
 
 import {
 	BASE_URL,
@@ -7,6 +8,8 @@ import {
 	GET_RESET_CODE_URL,
 	RESET_PASSWORD_URL,
 	REGISTER_URL,
+	LOGIN_URL,
+	USER_URL,
 } from '@constants';
 import { setOrderData } from '@store';
 
@@ -19,7 +22,11 @@ import type {
 	TForgotAndNewPassResponse,
 } from '../../types/order.types';
 
-import type { TRegisterProps, TRegisterResponse } from '../../types/user.types';
+import type {
+	TRegisterProps,
+	TRegisterResponse,
+	TLoginProps,
+} from '../../types/user.types';
 
 export const burgerDataApi = createApi({
 	reducerPath: 'burgerDataApi',
@@ -30,6 +37,7 @@ export const burgerDataApi = createApi({
 			return headers;
 		},
 	}),
+	tagTypes: ['User'],
 	endpoints: (build) => ({
 		getIngredients: build.query<TTransformedResponse, void>({
 			query: () => {
@@ -102,6 +110,43 @@ export const burgerDataApi = createApi({
 					name,
 				},
 			}),
+			invalidatesTags: ['User'],
+		}),
+		sendLogin: build.mutation<TRegisterResponse, TLoginProps>({
+			query: ({ email, password }) => ({
+				url: LOGIN_URL,
+				method: 'POST',
+				body: {
+					email,
+					password,
+				},
+			}),
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					const accessToken = data.accessToken.split('Bearer ')[1];
+					setCookie('accessToken', accessToken);
+					localStorage.setItem('refreshToken', data.refreshToken);
+
+					setTimeout(() => {
+						dispatch(burgerDataApi.util.invalidateTags(['User']));
+					}, 100);
+				} catch (error) {
+					console.error('Login failed:', error);
+				}
+			},
+		}),
+		getUser: build.query<void, void>({
+			query: () => {
+				return {
+					url: USER_URL,
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${getCookie('accessToken')}`,
+					},
+				};
+			},
+			providesTags: ['User'],
 		}),
 	}),
 });
@@ -112,4 +157,6 @@ export const {
 	useSendEmailCodeMutation,
 	useSendNewPasswordMutation,
 	useSendRegisterMutation,
+	useSendLoginMutation,
+	useGetUserQuery,
 } = burgerDataApi;

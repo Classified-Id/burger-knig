@@ -23,3 +23,9 @@ export type TRegisterResponse = {
 };
 
 export type TRegisterError = TNewPasswordError;
+export type TLoginError = TNewPasswordError;
+
+export type TLoginProps = {
+	email: string;
+	password: string;
+};

@@ -1,36 +1,36 @@
 import React, { useState } from 'react';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 
-// import { useAppDispatch } from '@store';
 import {
 	EmailInput,
 	PasswordInput,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSendLoginMutation } from '@store';
 
 import type { FC, ChangeEvent, MouseEventHandler } from 'react';
+import type { TLoginError } from '../../store/types/user.types';
 
 import styles from './login-page.module.scss';
+import { Notify } from '@components/notify/notify';
 
 export const LoginPage: FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	// const dispatch = useAppDispatch();
-	const [valPass, setValPass] = useState('');
-	const [valEmail, setValEmail] = useState('');
 
-	//todo добавить получение юзера из стора или из хука ртк
-	// const { user } = useSelector((store) => store.userInfo);
+	const [password, setPassword] = useState('');
+	const [email, setEmail] = useState('');
+
 	const user = {
 		name: undefined,
 	};
 
+	const [loginRequest, { error }] = useSendLoginMutation();
+
 	const onSubmit: MouseEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 
-		//todo запрос на попытку входа
-
-		navigate('/', { replace: true });
+		loginRequest({ password, email });
 	};
 
 	const register = () => navigate('/register', { replace: true });
@@ -38,11 +38,11 @@ export const LoginPage: FC = () => {
 	const forgotPassword = () => navigate('/forgot-password', { replace: true });
 
 	const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-		setValEmail(e.target.value);
+		setEmail(e.target.value);
 	};
 
 	const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-		setValPass(e.target.value);
+		setPassword(e.target.value);
 	};
 
 	if (user.name) {
@@ -51,19 +51,21 @@ export const LoginPage: FC = () => {
 
 	return (
 		<section className={styles.loginPageContainer}>
+			{error && <Notify message={(error as TLoginError).data.message} />}
+
 			<form className={`${styles.loginForm} mb-20`} onSubmit={onSubmit}>
 				<h1 className='text text_type_main-medium'>Вход</h1>
 				<EmailInput
 					onChange={handleEmail}
 					placeholder={'E-mail'}
-					value={valEmail}
+					value={email}
 					name={'email'}
 				/>
 				<PasswordInput
 					onChange={handlePassword}
 					name={'password'}
 					icon={'HideIcon'}
-					value={valPass}
+					value={password}
 				/>
 				<Button htmlType={'submit'} type={'primary'}>
 					Войти

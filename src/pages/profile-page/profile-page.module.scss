@@ -33,3 +33,9 @@
 	color: #f2f2f3;
 	text-decoration: none;
 }
+
+.profileForm {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
