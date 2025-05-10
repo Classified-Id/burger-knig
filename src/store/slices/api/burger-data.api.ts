@@ -6,6 +6,7 @@ import {
 	ORDER_URL,
 	GET_RESET_CODE_URL,
 	RESET_PASSWORD_URL,
+	REGISTER_URL,
 } from '@constants';
 import { setOrderData } from '@store';
 
@@ -17,6 +18,8 @@ import type {
 	TOrder,
 	TForgotAndNewPassResponse,
 } from '../../types/order.types';
+
+import type { TRegisterProps, TRegisterResponse } from '../../types/user.types';
 
 export const burgerDataApi = createApi({
 	reducerPath: 'burgerDataApi',
@@ -89,6 +92,17 @@ export const burgerDataApi = createApi({
 				},
 			}),
 		}),
+		sendRegister: build.mutation<TRegisterResponse, TRegisterProps>({
+			query: ({ email, password, name }) => ({
+				url: REGISTER_URL,
+				method: 'POST',
+				body: {
+					email,
+					password,
+					name,
+				},
+			}),
+		}),
 	}),
 });
 
@@ -97,4 +111,5 @@ export const {
 	useSendOrderMutation,
 	useSendEmailCodeMutation,
 	useSendNewPasswordMutation,
+	useSendRegisterMutation,
 } = burgerDataApi;

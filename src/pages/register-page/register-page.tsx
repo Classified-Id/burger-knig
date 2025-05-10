@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { clsx } from 'clsx';
 
+import { setCookie } from '@utils/cookies';
+import { useSendRegisterMutation } from '@store';
 import {
 	Logo,
 	Input,
+	EmailInput,
 	PasswordInput,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Notify } from '@components/notify/notify';
 
 import type { SyntheticEvent } from 'react';
+import type { TRegisterError } from '../../store/types/user.types';
 
 import styles from './register-page.module.scss';
 
 export const RegisterPage = () => {
+	const navigate = useNavigate();
+
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
 		password: '',
 	});
+
+	const [sendRegister, { error }] = useSendRegisterMutation();
 
 	const fieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({
@@ -30,12 +39,22 @@ export const RegisterPage = () => {
 	const handleSubmit = (e: SyntheticEvent) => {
 		e.preventDefault();
 
-		// Выполняем запрос на регистрацию
+		sendRegister(formData)
+			.unwrap()
+			.then((res) => {
+				const accessToken = res.accessToken.split('Bearer ')[1];
+				setCookie('accessToken', accessToken);
+				localStorage.setItem('refreshToken', res.refreshToken);
+
+				if (res.success) navigate('/login', { replace: true });
+			})
+			.catch((err: TRegisterError) => console.error(err.data.message));
 	};
 
 	return (
 		<>
 			<div className={clsx(styles.registerWrapper, 'mt-25')}>
+				{error && <Notify message={(error as TRegisterError).data.message} />}
 				<Logo />
 
 				<form
@@ -49,12 +68,11 @@ export const RegisterPage = () => {
 						name={'name'}
 						type={'text'}
 					/>
-					<Input
+					<EmailInput
 						onChange={fieldChange}
 						value={formData.email}
 						placeholder={'E-mail'}
 						name={'email'}
-						type={'email'}
 					/>
 					<PasswordInput
 						onChange={fieldChange}
@@ -62,7 +80,7 @@ export const RegisterPage = () => {
 						placeholder={'password'}
 						name={'password'}
 					/>
-					<Button htmlType={'button'} type={'primary'} size={'small'}>
+					<Button htmlType={'submit'} type={'primary'} size={'small'}>
 						<p className={'text text_type_main-default'}>Зарегистрироваться</p>
 					</Button>
 				</form>

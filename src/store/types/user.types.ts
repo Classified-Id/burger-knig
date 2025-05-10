@@ -5,3 +5,21 @@ export type TNewPasswordError = {
 		message: string;
 	};
 };
+
+export type TRegisterProps = {
+	email: string;
+	password: string;
+	name: string;
+};
+
+export type TRegisterResponse = {
+	user: {
+		email: string;
+		name: string;
+	};
+	success: boolean;
+	accessToken: string;
+	refreshToken: string;
+};
+
+export type TRegisterError = TNewPasswordError;

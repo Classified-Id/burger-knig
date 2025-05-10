@@ -60,18 +60,8 @@ export const App = () => {
 				<Route
 					path='/profile'
 					element={
-						// <ProtectedRoute path='/profile' forAuth>
-						// 	<ProfilePage />
-						// </ProtectedRoute>
-						<ProfilePage />
-					}
-				/>
-
-				<Route
-					path='/profile/orders/:number'
-					element={
-						<ProtectedRoute path='/profile/orders' forAuth>
-							<ModalOrder />
+						<ProtectedRoute path='/profile' forAuth>
+							<ProfilePage />
 						</ProtectedRoute>
 					}
 				/>
@@ -112,23 +102,18 @@ export const App = () => {
 					}
 				/>
 
+				<Route path='*' element={<ErrorPage />} />
+
 				{backgroundStateLocation && (
 					<Route path='/ingredients/:id'>
 						<ModalIngredient />
 					</Route>
 				)}
 				{backgroundStateLocation && (
-					<Route path='/feed/:id'>
+					<Route path='/order/:orderId'>
 						<ModalOrder />
 					</Route>
 				)}
-				{backgroundStateLocation && (
-					<Route path='/profile/orders/:id'>
-						<ModalOrder />
-					</Route>
-				)}
-
-				<Route path='*' element={<ErrorPage />} />
 			</Routes>
 		</div>
 	);

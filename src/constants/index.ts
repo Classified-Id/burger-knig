@@ -6,3 +6,5 @@ export const ORDER_URL = '/orders';
 export const GET_RESET_CODE_URL = '/password-reset';
 
 export const RESET_PASSWORD_URL = '/password-reset/reset';
+
+export const REGISTER_URL = '/auth/register';

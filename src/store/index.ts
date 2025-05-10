@@ -26,6 +26,7 @@ export {
 	useSendOrderMutation,
 	useSendEmailCodeMutation,
 	useSendNewPasswordMutation,
+	useSendRegisterMutation,
 } from './slices/api/burger-data.api';
 
 export {
