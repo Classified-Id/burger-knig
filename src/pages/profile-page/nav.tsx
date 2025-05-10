@@ -1,10 +1,9 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useLogoutMutation } from '@store';
 
 import styles from './profile-page.module.scss';
-import { useLogoutMutation } from '@store';
 
 export function Nav() {
 	const { pathname } = useLocation();
@@ -13,7 +12,6 @@ export function Nav() {
 
 	return (
 		<nav className={styles.navigationList + ' pt-5 mb-20'}>
-			{/* профиль */}
 			<NavLink
 				to='/profile'
 				className={({ isActive }) =>
@@ -24,7 +22,6 @@ export function Nav() {
 				<span className='ml-2 pu-5 pb-5'>Профиль</span>
 			</NavLink>
 
-			{/* история заказов */}
 			<NavLink
 				to='/profile/orders'
 				className={({ isActive }) =>
@@ -35,23 +32,17 @@ export function Nav() {
 				<span className='ml-2 pu-5 pb-5'>История заказов</span>
 			</NavLink>
 
-			{/* выход */}
 			<NavLink
 				to='/login'
 				className={({ isActive }) =>
 					`${styles.link} text text_type_main-medium text_color_inactive ${
 						isActive ? styles.linkActive : ''
 					}`
-				}>
-				<Button
-					htmlType='button'
-					className='ml-2 pu-5 pb-5'
-					onClick={() => logoutRequest()}>
-					Выход
-				</Button>
+				}
+				onClick={() => logoutRequest()}>
+				<span className='ml-2 pu-5 pb-5'>Выход</span>
 			</NavLink>
 
-			{/* Доп. инфа */}
 			<div className='pt-20'>
 				<p className='text text_type_main-default text_color_inactive'>
 					В этом разделе Вы можете

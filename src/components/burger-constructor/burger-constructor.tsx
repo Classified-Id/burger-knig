@@ -1,6 +1,7 @@
 import { useMemo, useCallback } from 'react';
 import { clsx } from 'clsx';
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 
 import {
 	useAppDispatch,
@@ -12,6 +13,7 @@ import {
 	addBurgerIngredient,
 	sortBurgerIngredients,
 	useSendOrderMutation,
+	useGetUserQuery,
 } from '@store';
 
 import {
@@ -27,9 +29,12 @@ import type { TIngredient } from '@store';
 
 export const BurgerConstructor = () => {
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+
 	const buns = useAppSelector(getBurgerBuns);
 	const burgerIngredients = useAppSelector(getBurgerIngredients);
 
+	const { data: user } = useGetUserQuery();
 	const [sendOrder] = useSendOrderMutation();
 	const price = useMemo(() => {
 		return (
@@ -53,6 +58,10 @@ export const BurgerConstructor = () => {
 	});
 
 	const handleOrder = () => {
+		if (!user) {
+			navigate('/login');
+		}
+
 		if (buns !== null) {
 			sendOrder([
 				buns._id,

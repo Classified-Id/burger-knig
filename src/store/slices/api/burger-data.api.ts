@@ -19,6 +19,8 @@ import {
 } from '@constants';
 import { setOrderData } from '@store';
 
+import { setEmailSubmitted } from '../user-auth/user-auth.slice';
+
 import type {
 	TIngredientsResponse,
 	TTransformedResponse,
@@ -61,7 +63,9 @@ export const baseQueryWithReauth: BaseQueryFn = async (
 		result.error?.status === 403 &&
 		!(args.url === '/auth/token' && args.method === 'POST')
 	) {
-		const refreshToken = localStorage.getItem('refreshToken');
+		console.log(11, 11);
+		const refreshToken = getCookie('refreshToken');
+
 		console.log(refreshToken);
 		if (refreshToken) {
 			const refreshResult = await api.dispatch(
@@ -138,6 +142,15 @@ export const burgerDataApi = createApi({
 					email: email,
 				},
 			}),
+			async onQueryStarted(email, { dispatch, queryFulfilled }) {
+				try {
+					await queryFulfilled;
+					dispatch(setEmailSubmitted(true));
+				} catch (error) {
+					dispatch(setEmailSubmitted(false));
+					console.error('Ошибка отправки кода:', error);
+				}
+			},
 		}),
 		sendNewPassword: build.mutation<
 			TForgotAndNewPassResponse,

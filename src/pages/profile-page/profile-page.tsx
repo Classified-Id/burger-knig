@@ -69,50 +69,46 @@ export const ProfilePage = () => {
 	return (
 		<>
 			<div className={styles.profileWrapper + ' pt-20'}>
-				<div className={styles.navWrapper}>
-					<Nav />
-				</div>
+				<Nav />
 
-				<div className={styles.navWrapper}>
-					<form className={styles.profileForm} onSubmit={handleSubmit}>
-						<Input
-							onChange={handleChange}
-							value={formData.name}
-							placeholder={'Имя'}
-							icon={'EditIcon'}
-							size={'default'}
-							type={'text'}
-							name={'name'}
-						/>
-						<Input
-							onChange={handleChange}
-							value={formData.email}
-							placeholder={'Email'}
-							icon={'EditIcon'}
-							type={'email'}
-							name={'email'}
-						/>
-						<Input
-							onChange={handleChange}
-							value={formData.password}
-							placeholder={'Пароль'}
-							type={'password'}
-							icon={'EditIcon'}
-							name={'password'}
-							size={'default'}
-						/>
-						<Button type='primary' size='small' htmlType='submit'>
-							<p className='text text_type_main-default'>Сохранить</p>
-						</Button>
-						<Button
-							type='secondary'
-							htmlType='button'
-							size='small'
-							onClick={handleReset}>
-							<p className='text text_type_main-default'>Отмена</p>
-						</Button>
-					</form>
-				</div>
+				<form className={styles.profileForm} onSubmit={handleSubmit}>
+					<Input
+						onChange={handleChange}
+						value={formData.name}
+						placeholder={'Имя'}
+						icon={'EditIcon'}
+						size={'default'}
+						type={'text'}
+						name={'name'}
+					/>
+					<Input
+						onChange={handleChange}
+						value={formData.email}
+						placeholder={'Email'}
+						icon={'EditIcon'}
+						type={'email'}
+						name={'email'}
+					/>
+					<Input
+						onChange={handleChange}
+						value={formData.password}
+						placeholder={'Пароль'}
+						type={'password'}
+						icon={'EditIcon'}
+						name={'password'}
+						size={'default'}
+					/>
+					<Button type='primary' size='small' htmlType='submit'>
+						<p className='text text_type_main-default'>Сохранить</p>
+					</Button>
+					<Button
+						onClick={handleReset}
+						htmlType='button'
+						type='secondary'
+						size='small'>
+						<p className='text text_type_main-default'>Отмена</p>
+					</Button>
+				</form>
 			</div>
 		</>
 	);

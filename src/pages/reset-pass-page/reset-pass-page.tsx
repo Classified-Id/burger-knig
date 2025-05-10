@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { clsx } from 'clsx';
 
-import { useSendNewPasswordMutation } from '@store';
+import { useAppSelector, useSendNewPasswordMutation } from '@store';
+import { getEmailSubmitted } from '../../store/slices/user-auth/user-auth.selector';
 import { Link, useNavigate } from 'react-router-dom';
 import {
 	Logo,
@@ -18,10 +19,16 @@ import styles from './reset-pass-page.module.scss';
 export const ResetPassPage = () => {
 	const navigate = useNavigate();
 
+	const emailSubmitted = useAppSelector(getEmailSubmitted);
+
 	const [password, setPassword] = useState('');
 	const [token, setToken] = useState('');
 
 	const [sendNewPassword, { error }] = useSendNewPasswordMutation();
+
+	if (!emailSubmitted) {
+		navigate('/forgot-password', { replace: true });
+	}
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
