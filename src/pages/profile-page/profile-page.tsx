@@ -44,10 +44,9 @@ export const ProfilePage = () => {
 	};
 
 	const handleSubmit = (e: SyntheticEvent) => {
-		console.log(1111);
 		e.preventDefault();
 		if (!isDirty) return;
-		console.log(2222);
+
 		updateUserRequest({
 			name: formData.name,
 			email: formData.email,

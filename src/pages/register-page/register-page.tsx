@@ -47,7 +47,9 @@ export const RegisterPage = () => {
 	return (
 		<>
 			<div className={clsx(styles.registerWrapper, 'mt-25')}>
-				{error && <Notify message={(error as TRegisterError).data.message} />}
+				{(error as TRegisterError) && (
+					<Notify message={(error as TRegisterError).data.message} />
+				)}
 				<Logo />
 
 				<form

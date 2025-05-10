@@ -30,6 +30,8 @@ export {
 	useSendLoginMutation,
 	useGetUserQuery,
 	useUpdateUserMutation,
+	useRefreshTokenMutation,
+	useLogoutMutation,
 } from './slices/api/burger-data.api';
 
 export {

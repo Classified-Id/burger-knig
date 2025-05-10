@@ -37,7 +37,9 @@ export const ResetPassPage = () => {
 
 	return (
 		<article className={clsx(styles.loginWrapper, 'mt-25')}>
-			{error && <Notify message={(error as TNewPasswordError).data.message} />}
+			{(error as TNewPasswordError) && (
+				<Notify message={(error as TNewPasswordError).data.message} />
+			)}
 
 			<Logo />
 

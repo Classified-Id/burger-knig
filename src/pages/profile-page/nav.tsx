@@ -4,9 +4,12 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './profile-page.module.scss';
+import { useLogoutMutation } from '@store';
 
 export function Nav() {
 	const { pathname } = useLocation();
+
+	const [logoutRequest] = useLogoutMutation();
 
 	return (
 		<nav className={styles.navigationList + ' pt-5 mb-20'}>
@@ -43,7 +46,7 @@ export function Nav() {
 				<Button
 					htmlType='button'
 					className='ml-2 pu-5 pb-5'
-					onClick={() => console.log('exit')}>
+					onClick={() => logoutRequest()}>
 					Выход
 				</Button>
 			</NavLink>

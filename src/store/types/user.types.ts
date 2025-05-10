@@ -51,3 +51,8 @@ export type TUpdateUserResponse = {
 	};
 	success: boolean;
 };
+
+export type TLogoutResponse = {
+	success: boolean;
+	message: string;
+};

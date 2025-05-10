@@ -1,5 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getCookie, setCookie } from '@utils/cookies';
+import {
+	createApi,
+	fetchBaseQuery,
+	BaseQueryFn,
+} from '@reduxjs/toolkit/query/react';
+import { getCookie, setCookie, deleteCookie } from '@utils/cookies';
 
 import {
 	BASE_URL,
@@ -11,6 +15,7 @@ import {
 	LOGIN_URL,
 	USER_URL,
 	REFRESH_TOKEN_URL,
+	LOGOUT_URL,
 } from '@constants';
 import { setOrderData } from '@store';
 
@@ -30,17 +35,60 @@ import type {
 	TUser,
 	TUpdateUserProps,
 	TUpdateUserResponse,
+	TLogoutResponse,
 } from '../../types/user.types';
+
+const baseQuery = fetchBaseQuery({
+	baseUrl: BASE_URL,
+	prepareHeaders: (headers) => {
+		headers.set('Content-Type', 'application/json');
+		const token = getCookie('accessToken');
+		if (token) {
+			headers.set('Authorization', `Bearer ${token}`);
+		}
+		return headers;
+	},
+});
+
+export const baseQueryWithReauth: BaseQueryFn = async (
+	args,
+	api,
+	extraOptions
+) => {
+	let result = await baseQuery(args, api, extraOptions);
+
+	if (
+		result.error?.status === 403 &&
+		!(args.url === '/auth/token' && args.method === 'POST')
+	) {
+		const refreshToken = localStorage.getItem('refreshToken');
+		console.log(refreshToken);
+		if (refreshToken) {
+			const refreshResult = await api.dispatch(
+				burgerDataApi.endpoints.refreshToken.initiate({ token: refreshToken })
+			);
+
+			console.log(refreshResult);
+
+			if ('data' in refreshResult && refreshResult.data) {
+				const accessToken = refreshResult.data.accessToken.split('Bearer ')[1];
+				setCookie('accessToken', accessToken);
+				setCookie('refreshToken', refreshResult.data.refreshToken);
+
+				result = await baseQuery(args, api, extraOptions);
+			} else {
+				localStorage.removeItem('refreshToken');
+				setCookie('accessToken', '', { expires: -1 });
+			}
+		}
+	}
+
+	return result;
+};
 
 export const burgerDataApi = createApi({
 	reducerPath: 'burgerDataApi',
-	baseQuery: fetchBaseQuery({
-		baseUrl: BASE_URL,
-		prepareHeaders: (headers) => {
-			headers.set('Content-Type', 'application/json');
-			return headers;
-		},
-	}),
+	baseQuery: baseQueryWithReauth,
 	tagTypes: ['User'],
 	endpoints: (build) => ({
 		getIngredients: build.query<TTransformedResponse, void>({
@@ -119,7 +167,7 @@ export const burgerDataApi = createApi({
 					const { data } = await queryFulfilled;
 					const accessToken = data.accessToken.split('Bearer ')[1];
 					setCookie('accessToken', accessToken);
-					localStorage.setItem('refreshToken', data.refreshToken);
+					setCookie('refreshToken', data.refreshToken);
 
 					setTimeout(() => {
 						dispatch(burgerDataApi.util.invalidateTags(['User']));
@@ -143,7 +191,7 @@ export const burgerDataApi = createApi({
 					const { data } = await queryFulfilled;
 					const accessToken = data.accessToken.split('Bearer ')[1];
 					setCookie('accessToken', accessToken);
-					localStorage.setItem('refreshToken', data.refreshToken);
+					setCookie('refreshToken', data.refreshToken);
 
 					setTimeout(() => {
 						dispatch(burgerDataApi.util.invalidateTags(['User']));
@@ -200,7 +248,48 @@ export const burgerDataApi = createApi({
 				url: REFRESH_TOKEN_URL,
 				method: 'POST',
 				body: { token },
+				headers: {
+					Authorization: `Bearer ${getCookie('refreshToken')}`,
+				},
 			}),
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					const accessToken = data.accessToken.split('Bearer ')[1];
+					setCookie('accessToken', accessToken);
+					setCookie('refreshToken', data.refreshToken);
+
+					setTimeout(() => {
+						dispatch(burgerDataApi.util.invalidateTags(['User']));
+					}, 100);
+				} catch (error) {
+					console.error('Login failed:', error);
+				}
+			},
+		}),
+		logout: build.mutation<TLogoutResponse, void>({
+			query: () => ({
+				url: LOGOUT_URL,
+				method: 'POST',
+				body: {
+					token: getCookie('refreshToken'),
+				},
+				headers: {
+					Authorization: `Bearer ${getCookie('refreshToken')}`,
+				},
+			}),
+			async onQueryStarted(arg, { dispatch }) {
+				try {
+					deleteCookie('accessToken');
+					deleteCookie('refreshToken');
+
+					setTimeout(() => {
+						dispatch(burgerDataApi.util.invalidateTags(['User']));
+					}, 200);
+				} catch (error) {
+					console.error('Login failed:', error);
+				}
+			},
 		}),
 	}),
 });
@@ -214,4 +303,6 @@ export const {
 	useSendLoginMutation,
 	useGetUserQuery,
 	useUpdateUserMutation,
+	useRefreshTokenMutation,
+	useLogoutMutation,
 } = burgerDataApi;

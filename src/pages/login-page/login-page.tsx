@@ -51,7 +51,9 @@ export const LoginPage: FC = () => {
 
 	return (
 		<section className={styles.loginPageContainer}>
-			{error && <Notify message={(error as TLoginError).data.message} />}
+			{(error as TLoginError) && (
+				<Notify message={(error as TLoginError).data.message} />
+			)}
 
 			<form className={`${styles.loginForm} mb-20`} onSubmit={onSubmit}>
 				<h1 className='text text_type_main-medium'>Вход</h1>

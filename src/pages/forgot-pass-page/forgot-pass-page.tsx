@@ -40,7 +40,9 @@ export const ForgotPassPage: FC = () => {
 
 	return (
 		<article className={clsx('mt-40', styles.pageContainer)}>
-			{error && <Notify message={'Ошибка отправки кода, попробуйте ещё раз'} />}
+			{(error as TNewPasswordError) && (
+				<Notify message={'Ошибка отправки кода, попробуйте ещё раз'} />
+			)}
 
 			<form className={styles.forgotPassForm} onSubmit={onSubmit}>
 				<h1 className='text text_type_main-medium'>Восстановление пароля</h1>
