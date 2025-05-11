@@ -1,3 +1,4 @@
+import { NavLink, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 
 import {
@@ -10,29 +11,31 @@ import {
 import styles from './app-header.module.scss';
 
 export const AppHeader = () => {
+	const { pathname } = useLocation();
+
 	return (
 		<header className={styles.header}>
 			<nav className={clsx(styles.headerNavigation)}>
-				<a
-					href={'/constructor'}
-					className={clsx(styles.headerLink, 'p-5', 'mr-2')}>
-					<BurgerIcon type='primary' />
+				<NavLink to='/' className={clsx(styles.headerLink, 'p-5', 'mr-2')}>
+					<BurgerIcon type={pathname === '/' ? 'primary' : 'secondary'} />
 					<span className='text text_type_main-default'>Конструктор</span>
-				</a>
+				</NavLink>
 
-				<a href={'/orders'} className={clsx(styles.headerLink, 'p-5')}>
-					<ListIcon type='secondary' />
+				<NavLink to='/feed' className={clsx(styles.headerLink, 'p-5')}>
+					<ListIcon type={pathname === '/feed' ? 'primary' : 'secondary'} />
 					<span className='text text_type_main-default'>Лента заказов</span>
-				</a>
+				</NavLink>
 
-				<a href={'/main page'} className={styles.headerLogo}>
+				<NavLink to='/' className={styles.headerLogo}>
 					<Logo />
-				</a>
+				</NavLink>
 
-				<a href={'/account'} className={clsx(styles.headerLink, 'p-5')}>
-					<ProfileIcon type='secondary' />
+				<NavLink to='/profile' className={clsx(styles.headerLink, 'p-5')}>
+					<ProfileIcon
+						type={pathname === '/profile' ? 'primary' : 'secondary'}
+					/>
 					<span className='text text_type_main-default'>Личный кабинет</span>
-				</a>
+				</NavLink>
 			</nav>
 		</header>
 	);

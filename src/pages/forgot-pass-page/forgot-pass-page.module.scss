@@ -1,0 +1,24 @@
+.pageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 180px;
+}
+
+.forgotPassForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 24px;
+}
+
+.toLoginContainer {
+	display: flex;
+	gap: 8px;
+}
+
+.homeLink {
+	padding: 0;
+}

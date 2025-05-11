@@ -1,0 +1,22 @@
+.registerWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+}
+
+.registerForm {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
+	width: 90%;
+	height: 340px;
+}
+
+.toLogin {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}

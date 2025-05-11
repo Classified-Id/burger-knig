@@ -1,18 +1,13 @@
 import { clsx } from 'clsx';
 import { useDrag } from 'react-dnd';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import {
 	CurrencyIcon,
 	Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {
-	useAppDispatch,
-	setShowModal,
-	setIngredient,
-	useAppSelector,
-	getBurgerBuns,
-	getBurgerIngredients,
-} from '@store';
+import { useAppSelector, getBurgerBuns, getBurgerIngredients } from '@store';
 
 import styles from './product.module.scss';
 
@@ -20,7 +15,8 @@ import type { FC } from 'react';
 import type { ProductType } from './product.props';
 
 export const Product: FC<ProductType> = ({ ingredient }) => {
-	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const buns = useAppSelector(getBurgerBuns);
 	const burgerIngredients = useAppSelector(getBurgerIngredients);
@@ -31,8 +27,9 @@ export const Product: FC<ProductType> = ({ ingredient }) => {
 	});
 
 	const openModal = () => {
-		dispatch(setIngredient(ingredient));
-		dispatch(setShowModal(true));
+		navigate(`/ingredients/${ingredient._id}`, {
+			state: { background: location },
+		});
 	};
 
 	const setCounter = () => {
