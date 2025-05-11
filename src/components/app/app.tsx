@@ -2,7 +2,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import { useGetUserQuery } from '@store';
+import { useGetIngredientsQuery, useGetUserQuery } from '@store';
 import { AppHeader } from '@components/app-header/app-header';
 import { ModalIngredient } from '@components/modalIngredient/modalIngredient';
 import { ModalOrder } from '@components/modalOrder/modalOrder';
@@ -10,12 +10,10 @@ import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredi
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
-// import { ProfileForm } from '@components/profile-form/profile-form';
-// import { OrderHistory } from '@components/order-history/order-history';
-// import { OrderDetails } from '@components/order-details/order-details';
 
 import {
 	ForgotPassPage,
+	// IngredientPage,
 	ResetPassPage,
 	RegisterPage,
 	ProfilePage,
@@ -27,10 +25,12 @@ import styles from './app.module.scss';
 
 export const App = () => {
 	const location = useLocation();
-	const backgroundStateLocation = location?.state?.background;
+	const background = location?.state?.background;
 
 	const { data: user } = useGetUserQuery();
+	const { data: ingredients } = useGetIngredientsQuery();
 	console.log('user!', user);
+	console.log('ingredients!', ingredients);
 
 	//todo тут будут вызываться основные запросы на получение данных о ингредиентах, авторизации, заказах и т.д.
 
@@ -38,7 +38,7 @@ export const App = () => {
 		<div className={styles.main}>
 			<AppHeader />
 
-			<Routes location={backgroundStateLocation || location}>
+			<Routes location={background || location}>
 				<Route
 					path='/'
 					element={
@@ -103,18 +103,13 @@ export const App = () => {
 				/>
 
 				<Route path='*' element={<ErrorPage />} />
-
-				{backgroundStateLocation && (
-					<Route path='/ingredients/:id'>
-						<ModalIngredient />
-					</Route>
-				)}
-				{backgroundStateLocation && (
-					<Route path='/order/:orderId'>
-						<ModalOrder />
-					</Route>
-				)}
 			</Routes>
+
+			{background && (
+				<Routes>
+					<Route path='/ingredients/:id' element={<ModalIngredient />} />
+				</Routes>
+			)}
 		</div>
 	);
 };

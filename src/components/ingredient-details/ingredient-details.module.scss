@@ -24,6 +24,9 @@
 	width: auto;
 	height: auto;
 	margin-top: 20px;
+	max-width: 640px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .productSaturation {
@@ -36,4 +39,8 @@
 	span {
 		text-align: center;
 	}
+}
+
+.wrapper {
+	max-width: 640px;
 }

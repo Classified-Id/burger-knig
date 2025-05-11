@@ -1,9 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
 	useAppSelector,
 	useAppDispatch,
-	getCurrentIngredient,
+	// getCurrentIngredient,
 	getIngredientModalState,
 	setShowModal,
 	clearIngredient,
@@ -12,11 +13,13 @@ import { Modal } from '@components/modal';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
 
 export const ModalIngredient = () => {
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const showModal = useAppSelector(getIngredientModalState);
-	const currentIngredient = useAppSelector(getCurrentIngredient);
+	// const currentIngredient = useAppSelector(getCurrentIngredient);
 
 	const closeModal = () => {
+		navigate(-1);
 		dispatch(setShowModal(false));
 		dispatch(clearIngredient());
 	};
@@ -27,7 +30,7 @@ export const ModalIngredient = () => {
 
 	return (
 		<Modal onClose={closeModal} header={'Детали ингредиента'}>
-			<IngredientDetails ingredient={currentIngredient} />
+			<IngredientDetails fromModal={true} />
 		</Modal>
 	);
 };

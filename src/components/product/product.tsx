@@ -1,5 +1,7 @@
 import { clsx } from 'clsx';
 import { useDrag } from 'react-dnd';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import {
 	CurrencyIcon,
 	Counter,
@@ -8,7 +10,7 @@ import {
 import {
 	useAppDispatch,
 	setShowModal,
-	setIngredient,
+	// setIngredient,
 	useAppSelector,
 	getBurgerBuns,
 	getBurgerIngredients,
@@ -21,6 +23,8 @@ import type { ProductType } from './product.props';
 
 export const Product: FC<ProductType> = ({ ingredient }) => {
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const buns = useAppSelector(getBurgerBuns);
 	const burgerIngredients = useAppSelector(getBurgerIngredients);
@@ -31,7 +35,11 @@ export const Product: FC<ProductType> = ({ ingredient }) => {
 	});
 
 	const openModal = () => {
-		dispatch(setIngredient(ingredient));
+		navigate(`/ingredients/${ingredient._id}`, {
+			state: { background: location },
+		});
+
+		// dispatch(setIngredient(ingredient));
 		dispatch(setShowModal(true));
 	};
 
