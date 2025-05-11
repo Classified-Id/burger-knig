@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { useAppDispatch } from '@store';
 import {
 	Button,
 	Input,
@@ -11,13 +10,12 @@ import type { SyntheticEvent } from 'react';
 import styles from './profile-form.module.scss';
 
 export const ProfileForm = () => {
-	const dispatch = useAppDispatch();
+	//todo компонент пока что не используется, но думаю в следующих спринтах он мне пригодится
 	const initialState = {
 		name: '',
 		email: '',
 		password: '',
 	};
-	const [defaultState, setDefaultState] = useState(initialState);
 	const [state, setState] = useState(initialState);
 
 	const handleStateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +33,7 @@ export const ProfileForm = () => {
 
 	const handleReset = (e: SyntheticEvent) => {
 		e.preventDefault();
-		setState(defaultState);
 	};
-
-	useEffect(() => {
-		// мб пригодится
-		console.log(setDefaultState);
-	}, [dispatch]);
 
 	return (
 		<form className={styles.profileForm} onSubmit={handleSubmit}>

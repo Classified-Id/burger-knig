@@ -45,16 +45,6 @@ export {
 	sortBurgerIngredients,
 } from './slices/burgerIngredients/burgerIngredients.slice';
 
-export {
-	getCurrentIngredient,
-	getIngredientModalState,
-} from './slices/ingredientDetails/ingredientDetails.selector';
-export {
-	setShowModal,
-	clearIngredient,
-	setIngredient,
-} from './slices/ingredientDetails/ingredientDetails.slice';
-
 export { getOrder, getOrderModalState } from './slices/order/order.selector';
 export { setOrderData, setShowOrderModal } from './slices/order/order.slice';
 

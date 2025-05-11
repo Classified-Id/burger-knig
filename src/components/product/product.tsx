@@ -7,14 +7,7 @@ import {
 	Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {
-	useAppDispatch,
-	setShowModal,
-	// setIngredient,
-	useAppSelector,
-	getBurgerBuns,
-	getBurgerIngredients,
-} from '@store';
+import { useAppSelector, getBurgerBuns, getBurgerIngredients } from '@store';
 
 import styles from './product.module.scss';
 
@@ -22,7 +15,6 @@ import type { FC } from 'react';
 import type { ProductType } from './product.props';
 
 export const Product: FC<ProductType> = ({ ingredient }) => {
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -38,9 +30,6 @@ export const Product: FC<ProductType> = ({ ingredient }) => {
 		navigate(`/ingredients/${ingredient._id}`, {
 			state: { background: location },
 		});
-
-		// dispatch(setIngredient(ingredient));
-		dispatch(setShowModal(true));
 	};
 
 	const setCounter = () => {
