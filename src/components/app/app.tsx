@@ -2,7 +2,6 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import { useGetIngredientsQuery, useGetUserQuery } from '@store';
 import { AppHeader } from '@components/app-header/app-header';
 import { ModalIngredient } from '@components/modalIngredient/modalIngredient';
 import { ModalOrder } from '@components/modalOrder/modalOrder';
@@ -13,7 +12,6 @@ import { IngredientDetails } from '@components/ingredient-details/ingredient-det
 
 import {
 	ForgotPassPage,
-	// IngredientPage,
 	ResetPassPage,
 	RegisterPage,
 	ProfilePage,
@@ -26,13 +24,6 @@ import styles from './app.module.scss';
 export const App = () => {
 	const location = useLocation();
 	const background = location?.state?.background;
-
-	const { data: user } = useGetUserQuery();
-	const { data: ingredients } = useGetIngredientsQuery();
-	console.log('user!', user);
-	console.log('ingredients!', ingredients);
-
-	//todo тут будут вызываться основные запросы на получение данных о ингредиентах, авторизации, заказах и т.д.
 
 	return (
 		<div className={styles.main}>
@@ -49,7 +40,6 @@ export const App = () => {
 									<BurgerConstructor />
 								</main>
 							</DndProvider>
-							<ModalIngredient />
 							<ModalOrder />
 						</>
 					}
