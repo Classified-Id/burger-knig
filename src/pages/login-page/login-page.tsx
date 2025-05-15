@@ -34,6 +34,9 @@ export const LoginPage: FC = () => {
 			.unwrap()
 			.then(() => {
 				navigate('/', { replace: true });
+			})
+			.catch((err) => {
+				console.error(err.data.message);
 			});
 	};
 
