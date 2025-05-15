@@ -30,7 +30,14 @@ export const LoginPage: FC = () => {
 	const onSubmit: MouseEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 
-		loginRequest({ password, email });
+		loginRequest({ password, email })
+			.unwrap()
+			.then(() => {
+				navigate('/', { replace: true });
+			})
+			.catch((err) => {
+				console.error(err.data.message);
+			});
 	};
 
 	const register = () => navigate('/register', { replace: true });

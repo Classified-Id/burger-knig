@@ -1,12 +1,12 @@
 export type TOrder = {
-	name: string;
 	order: { number: number };
 	success: boolean;
+	name: string;
 };
 
 export type TOrderSliceInitState = {
-	order: TOrder;
 	showOrderModal: boolean;
+	order: TOrder;
 };
 
 export type TForgotAndNewPassResponse = {
