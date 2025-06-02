@@ -15,6 +15,7 @@ import {
 	ResetPassPage,
 	RegisterPage,
 	ProfilePage,
+	OrdersPage,
 	LoginPage,
 	ErrorPage,
 } from '@pages/index';
@@ -46,6 +47,10 @@ export const App = () => {
 				/>
 
 				<Route path='/ingredients/:id' element={<IngredientDetails />} />
+
+				<Route path='/feed' element={<OrdersPage />}>
+					<Route path=':number' element={<div>Orders Details</div>} />
+				</Route>
 
 				<Route
 					path='/profile'
@@ -98,6 +103,16 @@ export const App = () => {
 			{background && (
 				<Routes>
 					<Route path='/ingredients/:id' element={<ModalIngredient />} />
+
+					<Route
+						path='/feed/:number'
+						element={<div>Сделать компонент с модалкой для этой истории</div>}
+						// element={
+						// 	<Modal title={'#' + location.pathname.split('/').pop()} onClose={handleCloseModalOrderInfo}>
+						// 		<OrderInfoModal />
+						// 	</Modal>
+						// }
+					/>
 				</Routes>
 			)}
 		</div>

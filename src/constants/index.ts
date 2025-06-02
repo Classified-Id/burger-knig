@@ -8,3 +8,9 @@ export const LOGIN_URL = '/auth/login';
 export const LOGOUT_URL = '/auth/logout';
 export const USER_URL = '/auth/user';
 export const REFRESH_TOKEN_URL = '/auth/token';
+
+export enum WebsocketStatus {
+	CONNECTING = 'CONNECTING...',
+	OFFLINE = 'OFFLINE',
+	ONLINE = 'ONLINE',
+}
