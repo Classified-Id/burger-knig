@@ -14,3 +14,13 @@ export enum WebsocketStatus {
 	OFFLINE = 'OFFLINE',
 	ONLINE = 'ONLINE',
 }
+
+export const WSS_USER_URL_ORDERS = 'wss://norma.nomoreparties.space/orders';
+
+export const WSS_URL_ORDERS = 'wss://norma.nomoreparties.space/orders/all';
+
+export const status = {
+	created: 'Создан',
+	pending: 'Готовится',
+	done: 'Выполнен',
+};

@@ -56,3 +56,14 @@ export type TLogoutResponse = {
 	success: boolean;
 	message: string;
 };
+
+export type UserType = {
+	email: string;
+	name: string;
+};
+
+export type ResponseAuthData = TLogoutResponse & {
+	user: UserType;
+	accessToken: string;
+	refreshToken: string;
+};

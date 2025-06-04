@@ -15,9 +15,9 @@ import {
 	ResetPassPage,
 	RegisterPage,
 	ProfilePage,
-	OrdersPage,
 	LoginPage,
 	ErrorPage,
+	FeedPage,
 } from '@pages/index';
 
 import styles from './app.module.scss';
@@ -48,9 +48,11 @@ export const App = () => {
 
 				<Route path='/ingredients/:id' element={<IngredientDetails />} />
 
-				<Route path='/feed' element={<OrdersPage />}>
-					<Route path=':number' element={<div>Orders Details</div>} />
-				</Route>
+				<Route path='/feed' element={<FeedPage />} />
+
+				{/*<Route path='/feed' element={<OrdersPage />}>*/}
+				{/*	<Route path=':number' element={<div>Orders Details</div>} />*/}
+				{/*</Route>*/}
 
 				<Route
 					path='/profile'
