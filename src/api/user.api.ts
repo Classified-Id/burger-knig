@@ -15,7 +15,6 @@ export const getToken = async () => {
 	}).then((data: ResponseAuthData) => {
 		const { accessToken, refreshToken } = data;
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const [_, token] = accessToken.split(' ');
 		setCookie('token', token, {
 			expires: 20 * 60,

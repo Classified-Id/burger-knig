@@ -17,7 +17,6 @@ export function OrderModalContent() {
 		: [];
 
 	if (currentOrder && allIngredients.length) {
-		console.log(currentOrder, 'currentOrder');
 		const ingredientCount = currentOrder.ingredients.reduce((acc, id) => {
 			acc[id] = (acc[id] || 0) + 1;
 

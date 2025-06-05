@@ -64,22 +64,22 @@ export const ordersSlice = createSlice({
 			state.currentOrder = null;
 		},
 	},
-	extraReducers: (builder) => {
-		builder
-			.addCase(postOrder.pending, (state) => {
-				state.isLoading = true;
-				state.isError = false;
-			})
-			.addCase(postOrder.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isError = false;
-				state.orderNumber = action.payload.order.number;
-			})
-			.addCase(postOrder.rejected, (state) => {
-				state.isLoading = false;
-				state.isError = true;
-			});
-	},
+	// extraReducers: (builder) => {
+	// 	builder
+	// 		.addCase(postOrder.pending, (state) => {
+	// 			state.isLoading = true;
+	// 			state.isError = false;
+	// 		})
+	// 		.addCase(postOrder.fulfilled, (state, action) => {
+	// 			state.isLoading = false;
+	// 			state.isError = false;
+	// 			state.orderNumber = action.payload.order.number;
+	// 		})
+	// 		.addCase(postOrder.rejected, (state) => {
+	// 			state.isLoading = false;
+	// 			state.isError = true;
+	// 		});
+	// },
 });
 
 export const {

@@ -20,8 +20,6 @@ export const FeedPage = () => {
 
 	const { data, status } = useAppSelector((state) => state.orders);
 
-	console.log(data?.orders, '111');
-
 	if (status === 'error') {
 		return <div>Ошибка при загрузке заказов</div>;
 	}
