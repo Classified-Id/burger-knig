@@ -37,7 +37,6 @@ export function createWebSocketMiddleware<TMessage>(
 	{ withTokenRefresh }: WebSocketOptions
 ): Middleware<unknown, RootState, Dispatch<UnknownAction>> {
 	let socket: WebSocket | null = null;
-	let isConnected = false;
 	let reconnectTimer = 0;
 	let url: string;
 
@@ -52,7 +51,6 @@ export function createWebSocketMiddleware<TMessage>(
 
 				url = action.payload;
 				socket = new WebSocket(url);
-				isConnected = true;
 
 				socket.onopen = (event) => {
 					store.dispatch(onConnected(event));
@@ -101,7 +99,6 @@ export function createWebSocketMiddleware<TMessage>(
 				}
 
 				clearTimeout(reconnectTimer);
-				isConnected = false;
 				reconnectTimer = 0;
 				socket = null;
 			}

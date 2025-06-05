@@ -37,7 +37,9 @@ export const ordersSlice = createSlice({
 			state.status = 'disconnecting';
 			state.data = null;
 		},
-		sendMessage: (_state, _action: PayloadAction<OrderMessageType>) => {},
+		sendMessage: (_state, _action: PayloadAction<OrderMessageType>) => {
+			console.log('message');
+		},
 		onConnected: (state, _action: PayloadAction<Event>) => {
 			state.status = 'connected';
 			state.data = null;
