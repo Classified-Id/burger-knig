@@ -36,7 +36,7 @@ const ordersWebSocketMiddleware = createWebSocketMiddleware<OrderMessageType>(
 export const store = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat([
+		getDefaultMiddleware({ serializableCheck: false }).concat([
 			burgerDataApi.middleware,
 			ordersWebSocketMiddleware,
 		]),
@@ -61,6 +61,7 @@ export {
 	useUpdateUserMutation,
 	useRefreshTokenMutation,
 	useLogoutMutation,
+	useLazyGetOrderByIdQuery,
 } from './slices/api/burger-data.api';
 
 export {
@@ -87,4 +88,6 @@ export {
 	sendMessage,
 	onMessageReceived,
 	onError,
+	addOrder,
+	removeOrder,
 } from './slices/orders-slice';

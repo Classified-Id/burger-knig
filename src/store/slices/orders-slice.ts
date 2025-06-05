@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { postOrder } from '../../api/orders.api';
-import { OrderMessageType } from '../../types/order.types';
+import { OrderMessageType, OrderType } from '../../types/order.types';
 
 type OrderState = {
 	data: OrderMessageType | null;
@@ -14,6 +14,7 @@ type OrderState = {
 		| 'error';
 	isLoading: boolean;
 	isError: boolean;
+	currentOrder: OrderType | null;
 };
 
 const initialState: OrderState = {
@@ -23,6 +24,7 @@ const initialState: OrderState = {
 	isLoading: false,
 	isError: false,
 	status: 'disconnected',
+	currentOrder: null,
 };
 
 export const ordersSlice = createSlice({
@@ -55,6 +57,12 @@ export const ordersSlice = createSlice({
 			state.status = 'error';
 			state.error = action.payload;
 		},
+		addOrder: (state, action: PayloadAction<OrderType>) => {
+			state.currentOrder = action.payload;
+		},
+		removeOrder: (state) => {
+			state.currentOrder = null;
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -82,4 +90,6 @@ export const {
 	onDisconnected,
 	onMessageReceived,
 	onError,
+	addOrder,
+	removeOrder,
 } = ordersSlice.actions;

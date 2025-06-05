@@ -17,7 +17,7 @@ import {
 	REFRESH_TOKEN_URL,
 	LOGOUT_URL,
 } from '@constants';
-import { setOrderData } from '@store';
+import { setOrderData, addOrder } from '@store';
 
 import { setEmailSubmitted } from '../user-auth/user-auth.slice';
 
@@ -28,6 +28,8 @@ import type {
 import type {
 	TOrder,
 	TForgotAndNewPassResponse,
+	TGetOrderProps,
+	TGetOrderResponse,
 } from '../../types/order.types';
 
 import type {
@@ -304,6 +306,25 @@ export const burgerDataApi = createApi({
 				}
 			},
 		}),
+		getOrderById: build.query<TGetOrderResponse, TGetOrderProps>({
+			query: ({ orderId }) => {
+				return {
+					url: `/orders/${orderId}`,
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${getCookie('accessToken')}`,
+					},
+				};
+			},
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					dispatch(addOrder(data.orders[0]));
+				} catch (error) {
+					console.error('Ошибка при получении заказа:', error);
+				}
+			},
+		}),
 	}),
 });
 
@@ -318,4 +339,5 @@ export const {
 	useUpdateUserMutation,
 	useRefreshTokenMutation,
 	useLogoutMutation,
+	useLazyGetOrderByIdQuery,
 } = burgerDataApi;

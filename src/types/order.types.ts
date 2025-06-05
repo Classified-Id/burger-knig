@@ -10,13 +10,13 @@ export interface IOrder {
 }
 
 export type OrderType = {
-	name: string;
-	ingredients: string[];
-	_id: string;
 	status: 'done' | 'created' | 'pending';
-	number: number;
+	ingredients: string[];
 	createdAt: string;
 	updatedAt: string;
+	number: number;
+	name: string;
+	_id: string;
 };
 
 export type OrderMessageType = {

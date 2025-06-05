@@ -9,12 +9,14 @@ import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredi
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
+import { OrderModal } from '@components/order-modal/order-modal';
 
 import {
 	ForgotPassPage,
 	ResetPassPage,
 	RegisterPage,
 	ProfilePage,
+	OrderPage,
 	LoginPage,
 	ErrorPage,
 	FeedPage,
@@ -49,10 +51,7 @@ export const App = () => {
 				<Route path='/ingredients/:id' element={<IngredientDetails />} />
 
 				<Route path='/feed' element={<FeedPage />} />
-
-				{/*<Route path='/feed' element={<OrdersPage />}>*/}
-				{/*	<Route path=':number' element={<div>Orders Details</div>} />*/}
-				{/*</Route>*/}
+				<Route path='/feed/:id' element={<OrderPage />} />
 
 				<Route
 					path='/profile'
@@ -106,15 +105,7 @@ export const App = () => {
 				<Routes>
 					<Route path='/ingredients/:id' element={<ModalIngredient />} />
 
-					<Route
-						path='/feed/:number'
-						element={<div>Сделать компонент с модалкой для этой истории</div>}
-						// element={
-						// 	<Modal title={'#' + location.pathname.split('/').pop()} onClose={handleCloseModalOrderInfo}>
-						// 		<OrderInfoModal />
-						// 	</Modal>
-						// }
-					/>
+					<Route path='/feed/:id' element={<OrderModal />} />
 				</Routes>
 			)}
 		</div>

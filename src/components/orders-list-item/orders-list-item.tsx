@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router';
-import { useGetIngredientsQuery } from '@store';
+
+import { useGetIngredientsQuery, useAppDispatch, addOrder } from '@store';
 import {
 	CurrencyIcon,
 	FormattedDate,
@@ -14,6 +15,7 @@ import type { ListOrdersItemProps } from './order-list-item.props';
 export const OrderListItem: FC<ListOrdersItemProps> = (props) => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const dispatch = useAppDispatch();
 
 	const {
 		ingredients: ingredientsProp,
@@ -31,7 +33,7 @@ export const OrderListItem: FC<ListOrdersItemProps> = (props) => {
 		navigate(_id, {
 			state: { background: location },
 		});
-		// открыть модалку
+		dispatch(addOrder(props));
 	};
 
 	const allIngredients = data
