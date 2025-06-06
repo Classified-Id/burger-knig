@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OrderMessageType, OrderType } from '../../types/order.types';
+
+import type { OrderMessageType, OrderType } from '../../types/order.types';
 
 type OrderState = {
 	data: OrderMessageType | null;
@@ -63,22 +64,6 @@ export const ordersSlice = createSlice({
 			state.currentOrder = null;
 		},
 	},
-	// extraReducers: (builder) => {
-	// 	builder
-	// 		.addCase(postOrder.pending, (state) => {
-	// 			state.isLoading = true;
-	// 			state.isError = false;
-	// 		})
-	// 		.addCase(postOrder.fulfilled, (state, action) => {
-	// 			state.isLoading = false;
-	// 			state.isError = false;
-	// 			state.orderNumber = action.payload.order.number;
-	// 		})
-	// 		.addCase(postOrder.rejected, (state) => {
-	// 			state.isLoading = false;
-	// 			state.isError = true;
-	// 		});
-	// },
 });
 
 export const {

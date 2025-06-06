@@ -2,14 +2,15 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import { AppHeader } from '@components/app-header/app-header';
-import { ModalIngredient } from '@components/modalIngredient/modalIngredient';
-import { ModalOrder } from '@components/modalOrder/modalOrder';
-import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
-import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
+import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
+import { ModalIngredient } from '@components/modalIngredient/modalIngredient';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
+import { ProfileOrders } from '@components/profile-orders/profile-orders';
 import { OrderModal } from '@components/order-modal/order-modal';
+import { ModalOrder } from '@components/modalOrder/modalOrder';
+import { AppHeader } from '@components/app-header/app-header';
 import { Profile } from '@components/profile/profile';
 
 import {
@@ -62,8 +63,10 @@ export const App = () => {
 						</ProtectedRoute>
 					}>
 					<Route index element={<Profile />} />
-					<Route path='orders' element={<div>Список заказов</div>} />
+					<Route path='orders' element={<ProfileOrders />} />
 				</Route>
+
+				<Route path='/profile/orders/:id' element={<OrderPage />} />
 
 				<Route
 					path='/login'
@@ -109,6 +112,7 @@ export const App = () => {
 					<Route path='/ingredients/:id' element={<ModalIngredient />} />
 
 					<Route path='/feed/:id' element={<OrderModal />} />
+					<Route path='/profile/orders/:id' element={<OrderModal />} />
 				</Routes>
 			)}
 		</div>

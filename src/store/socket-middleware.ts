@@ -20,22 +20,19 @@ type WebSocketActions<TMessage> = {
 	onError: ActionCreatorWithPayload<Event>;
 };
 
-type WebSocketOptions = {
-	withTokenRefresh: boolean;
-};
-
-export function createWebSocketMiddleware<TMessage>(
-	{
-		connect,
-		disconnect,
-		sendMessage,
-		onConnected,
-		onDisconnected,
-		onMessageReceived,
-		onError,
-	}: WebSocketActions<TMessage>,
-	{ withTokenRefresh }: WebSocketOptions
-): Middleware<unknown, RootState, Dispatch<UnknownAction>> {
+export function createWebSocketMiddleware<TMessage>({
+	connect,
+	disconnect,
+	sendMessage,
+	onConnected,
+	onDisconnected,
+	onMessageReceived,
+	onError,
+}: WebSocketActions<TMessage>): Middleware<
+	unknown,
+	RootState,
+	Dispatch<UnknownAction>
+> {
 	let socket: WebSocket | null = null;
 	let reconnectTimer = 0;
 	let url: string;
@@ -65,7 +62,7 @@ export function createWebSocketMiddleware<TMessage>(
 					const data = JSON.parse(event.data);
 					store.dispatch(onMessageReceived(data));
 
-					if (withTokenRefresh && data.message === 'Invalid or missing token') {
+					if (data.message === 'Invalid or missing token') {
 						const token = getCookie('token');
 						const wssUrl = new URL(url);
 

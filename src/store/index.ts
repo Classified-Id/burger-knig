@@ -20,18 +20,15 @@ import {
 
 import type { OrderMessageType } from '../types/order.types';
 
-const ordersWebSocketMiddleware = createWebSocketMiddleware<OrderMessageType>(
-	{
-		connect,
-		disconnect,
-		onConnected,
-		onDisconnected,
-		sendMessage,
-		onMessageReceived,
-		onError,
-	},
-	{ withTokenRefresh: false }
-);
+const ordersWebSocketMiddleware = createWebSocketMiddleware<OrderMessageType>({
+	connect,
+	disconnect,
+	onConnected,
+	onDisconnected,
+	sendMessage,
+	onMessageReceived,
+	onError,
+});
 
 export const store = configureStore({
 	reducer: rootReducer,

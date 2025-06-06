@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch, addOrder } from '@store';
 import { OrderModalContent } from '@components/order-modal-content/order-modal-content';
+import { useAppSelector, useAppDispatch, addOrder } from '@store';
 import { Modal } from '@components/modal';
 
 import './order-modal.module.scss';
