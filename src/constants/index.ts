@@ -8,15 +8,7 @@ export const LOGIN_URL = '/auth/login';
 export const LOGOUT_URL = '/auth/logout';
 export const USER_URL = '/auth/user';
 export const REFRESH_TOKEN_URL = '/auth/token';
-
-export enum WebsocketStatus {
-	CONNECTING = 'CONNECTING...',
-	OFFLINE = 'OFFLINE',
-	ONLINE = 'ONLINE',
-}
-
 export const WSS_USER_URL_ORDERS = 'wss://norma.nomoreparties.space/orders';
-
 export const WSS_URL_ORDERS = 'wss://norma.nomoreparties.space/orders/all';
 
 export const status = {

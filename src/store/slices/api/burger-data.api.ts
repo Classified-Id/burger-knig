@@ -65,16 +65,12 @@ export const baseQueryWithReauth: BaseQueryFn = async (
 		result.error?.status === 403 &&
 		!(args.url === '/auth/token' && args.method === 'POST')
 	) {
-		console.log(11, 11);
 		const refreshToken = getCookie('refreshToken');
 
-		console.log(refreshToken);
 		if (refreshToken) {
 			const refreshResult = await api.dispatch(
 				burgerDataApi.endpoints.refreshToken.initiate({ token: refreshToken })
 			);
-
-			console.log(refreshResult);
 
 			if ('data' in refreshResult && refreshResult.data) {
 				const accessToken = refreshResult.data.accessToken.split('Bearer ')[1];
