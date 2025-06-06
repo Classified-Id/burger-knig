@@ -8,7 +8,7 @@ import {
 } from '@reduxjs/toolkit';
 import { getCookie } from '@utils/cookies';
 import { RootState } from '@store';
-import { getToken } from '../api/user.api';
+import { refreshToken } from '../api/user.api';
 
 type WebSocketActions<TMessage> = {
 	connect: ActionCreatorWithPayload<string>;
@@ -80,7 +80,7 @@ export function createWebSocketMiddleware<TMessage>(
 						if (token) {
 							updateSocketConnection(token);
 						} else {
-							getToken().then((data) => {
+							refreshToken().then((data) => {
 								const newToken = data.accessToken.replace('Bearer ', '');
 								updateSocketConnection(newToken);
 							});

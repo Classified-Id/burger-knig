@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { postOrder } from '../../api/orders.api';
 import { OrderMessageType, OrderType } from '../../types/order.types';
 
 type OrderState = {

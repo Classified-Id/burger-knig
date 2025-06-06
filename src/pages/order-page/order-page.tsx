@@ -26,7 +26,7 @@ export function OrderPage() {
 				orderId: id,
 			});
 		}
-	}, [data, fetchOrder]);
+	}, [data, fetchOrder, id]);
 
 	return (
 		<main className={`${styles.main} pt-26`}>

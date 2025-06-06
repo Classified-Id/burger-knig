@@ -1,26 +1,37 @@
 import { getCookie, setCookie } from '@utils/cookies';
-import { request } from '@utils/request';
+import { BASE_URL } from '@constants';
 
 import type { ResponseAuthData } from '../store/types/user.types';
 
-export const getToken = async () => {
-	const token = getCookie('refresh');
+export const refreshToken = async (): Promise<ResponseAuthData> => {
+	const refreshToken = getCookie('refresh');
+	if (!refreshToken) throw new Error('Refresh token not found');
 
-	return await request('/auth/token', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json;charset=utf-8',
-		},
-		body: JSON.stringify({ token }),
-	}).then((data: ResponseAuthData) => {
-		const { accessToken, refreshToken } = data;
-
-		const [_, token] = accessToken.split(' ');
-		setCookie('token', token, {
-			expires: 20 * 60,
+	try {
+		const response = await fetch(`${BASE_URL}/auth/token`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify({ token: refreshToken }),
 		});
-		setCookie('refresh', refreshToken);
+
+		if (!response.ok) {
+			const error = await response.json().catch(() => null);
+			console.error(`${error?.message} - ${response.status}`);
+		}
+
+		const data: ResponseAuthData = await response.json();
+		const accessToken = data.accessToken.split('Bearer ')[1];
+
+		setCookie('token', accessToken, { expires: 1200 });
+		setCookie('refresh', data.refreshToken);
 
 		return data;
-	});
+	} catch (error) {
+		console.error('Token refresh failed:', error);
+		throw error instanceof Error
+			? error
+			: new Error('Не удалось обновить токен');
+	}
 };
