@@ -11,9 +11,10 @@ export function Nav() {
 	const [logoutRequest] = useLogoutMutation();
 
 	return (
-		<nav className={styles.navigationList + ' pt-5 mb-20'}>
+		<nav className={styles.navigationList + ' pt-30'}>
 			<NavLink
 				to='/profile'
+				end
 				className={({ isActive }) =>
 					`${styles.link} text text_type_main-medium text_color_inactive ${
 						isActive ? styles.linkActive : ''

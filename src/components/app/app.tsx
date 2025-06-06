@@ -10,6 +10,7 @@ import { BurgerConstructor } from '@components/burger-constructor/burger-constru
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
 import { OrderModal } from '@components/order-modal/order-modal';
+import { Profile } from '@components/profile/profile';
 
 import {
 	ForgotPassPage,
@@ -56,11 +57,13 @@ export const App = () => {
 				<Route
 					path='/profile'
 					element={
-						<ProtectedRoute path='/profile' forAuth>
+						<ProtectedRoute path='profile' forAuth>
 							<ProfilePage />
 						</ProtectedRoute>
-					}
-				/>
+					}>
+					<Route index element={<Profile />} />
+					<Route path='orders' element={<div>Список заказов</div>} />
+				</Route>
 
 				<Route
 					path='/login'
