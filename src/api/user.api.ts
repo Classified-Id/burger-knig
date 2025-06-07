@@ -4,7 +4,7 @@ import { BASE_URL } from '@constants';
 import type { ResponseAuthData } from '../store/types/user.types';
 
 export const refreshToken = async (): Promise<ResponseAuthData> => {
-	const refreshToken = getCookie('refresh');
+	const refreshToken = getCookie('refreshToken');
 	if (!refreshToken) throw new Error('Refresh token not found');
 
 	try {
@@ -24,8 +24,8 @@ export const refreshToken = async (): Promise<ResponseAuthData> => {
 		const data: ResponseAuthData = await response.json();
 		const accessToken = data.accessToken.split('Bearer ')[1];
 
-		setCookie('token', accessToken, { expires: 1200 });
-		setCookie('refresh', data.refreshToken);
+		setCookie('accessToken', accessToken, { expires: 1200 });
+		setCookie('refreshToken', data.refreshToken);
 
 		return data;
 	} catch (error) {
