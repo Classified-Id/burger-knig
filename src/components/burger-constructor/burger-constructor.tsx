@@ -62,7 +62,7 @@ export const BurgerConstructor = () => {
 			navigate('/login');
 		}
 
-		if (buns !== null) {
+		if (buns !== null && user) {
 			sendOrder([
 				buns._id,
 				...burgerIngredients.map((ing) => ing._id),

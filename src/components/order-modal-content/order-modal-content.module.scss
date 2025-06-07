@@ -1,0 +1,38 @@
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	height: 100%;
+	max-width: 640px;
+}
+
+.content {
+	height: calc(100% - 312px);
+	max-height: 366px;
+}
+
+.number {
+	text-align: center;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	list-style: none;
+	overflow-y: auto;
+	height: calc(366px - 54px);
+	min-height: 64px;
+}
+
+.total {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+}
+
+.bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

@@ -32,7 +32,7 @@ export const AppHeader = () => {
 
 				<NavLink to='/profile' className={clsx(styles.headerLink, 'p-5')}>
 					<ProfileIcon
-						type={pathname === '/profile' ? 'primary' : 'secondary'}
+						type={pathname.startsWith('/profile') ? 'primary' : 'secondary'}
 					/>
 					<span className='text text_type_main-default'>Личный кабинет</span>
 				</NavLink>
