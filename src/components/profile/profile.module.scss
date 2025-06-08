@@ -1,0 +1,28 @@
+.profileWrapper {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	max-width: 1320px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	gap: 60px;
+}
+
+.navWrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.link {
+	text-decoration: none;
+	display: flex;
+	text-align: center;
+	align-items: center;
+}
+
+.profileForm {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}

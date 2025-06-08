@@ -1,0 +1,29 @@
+.item {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.badge {
+	background: linear-gradient(to right top, #801ab2, #4c4cff);
+	position: relative;
+	display: inline-block;
+	border-radius: 50%;
+	padding: 2px;
+	width: 64px;
+	height: 64px;
+	z-index: 0;
+}
+
+.background {
+	display: inline-block;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+}
+
+.total {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+}
