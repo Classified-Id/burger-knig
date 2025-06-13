@@ -79,7 +79,9 @@
 		"prepare": "husky install",
 		"commit": "npm run check && cz",
 		"test": "jest",
-		"cypress": "cypress open"
+		"cypress": "cypress open",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.5.1",
