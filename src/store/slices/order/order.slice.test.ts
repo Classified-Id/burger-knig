@@ -1,6 +1,10 @@
 import { expect, describe, it } from '@jest/globals';
-import reducer, { initialState, setOrderData, setShowOrderModal } from './order.slice';
-import { getOrder, getOrderModalState } from '@store';
+import reducer, {
+	initialState,
+	setOrderData,
+	setShowOrderModal,
+} from './order.slice';
+import { getOrder, getOrderModalState } from './order.selector';
 
 import type { TOrder } from '../../types/order.types';
 import type { RootState } from '@store';
@@ -10,14 +14,14 @@ const testState = {
 		order: {
 			name: 'Test burger',
 			order: { number: 456 },
-			success: true
+			success: true,
 		},
-		showOrderModal: true
+		showOrderModal: true,
 	},
 	burgerIngredients: {},
 	authUserSlice: {},
 	orders: {},
-	burgerDataApi: {}
+	burgerDataApi: {},
 } as unknown as RootState;
 
 describe('orderSlice', () => {
@@ -32,7 +36,7 @@ describe('orderSlice', () => {
 			const testOrder: TOrder = {
 				name: 'Test order',
 				order: { number: 123 },
-				success: true
+				success: true,
 			};
 
 			const action = setOrderData(testOrder);
@@ -45,12 +49,12 @@ describe('orderSlice', () => {
 		it('should handle partial order data', () => {
 			const partialOrder = {
 				name: 'Partial order',
-				success: false
+				success: false,
 			};
 
 			const action = setOrderData({
 				...initialState.order,
-				...partialOrder
+				...partialOrder,
 			} as TOrder);
 
 			const state = reducer(initialState, action);
