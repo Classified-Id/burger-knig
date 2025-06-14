@@ -13,10 +13,9 @@ const root = createRoot(domNode);
 
 root.render(
 	<Provider store={store}>
-		<Router basename='/'>
+		<Router
+			basename={process.env.NODE_ENV === 'production' ? '/burger-knig' : '/'}>
 			<App />
 		</Router>
 	</Provider>
 );
-
-//todo delete profile-form

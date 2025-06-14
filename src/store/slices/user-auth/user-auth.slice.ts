@@ -6,7 +6,7 @@ type TBurgerSliceInitState = {
 	emailSubmitted: boolean;
 };
 
-const initialState: TBurgerSliceInitState = {
+export const initialState: TBurgerSliceInitState = {
 	emailSubmitted: false,
 };
 

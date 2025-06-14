@@ -53,13 +53,13 @@ export const BurgerIngredients = () => {
 			</div>
 
 			<ul className={styles.ingredientsList} ref={containerRef}>
-				<ProductsList data={data.buns} ref={bunsRef}>
+				<ProductsList data={data.buns} ref={bunsRef} id={'bun'}>
 					Булки
 				</ProductsList>
-				<ProductsList data={data.sauces} ref={saucesRef}>
+				<ProductsList data={data.sauces} ref={saucesRef} id={'sauce'}>
 					Соусы
 				</ProductsList>
-				<ProductsList data={data.mains} ref={mainsRef}>
+				<ProductsList data={data.mains} ref={mainsRef} id={'main'}>
 					Начинки
 				</ProductsList>
 			</ul>

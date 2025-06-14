@@ -1,0 +1,35 @@
+{
+	"success": true,
+	"name": "Био-марсианский бургер",
+	"order": {
+		"ingredients": [
+			{
+				"_id": "643d69a5c3f7b9001cfa0941",
+				"name": "Биокотлета из марсианской Магнолии",
+				"type": "main",
+				"proteins": 420,
+				"fat": 142,
+				"carbohydrates": 242,
+				"calories": 4242,
+				"price": 424,
+				"image": "https://code.s3.yandex.net/react/code/meat-01.png",
+				"image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+				"image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+				"__v": 0
+			}
+		],
+		"_id": "684ac46cc2f30c001cb2bf0f",
+		"owner": {
+			"name": "Dmitriy",
+			"email": "160691@mail.ru",
+			"createdAt": "2025-04-26T12:59:49.357Z",
+			"updatedAt": "2025-04-26T14:45:50.633Z"
+		},
+		"status": "done",
+		"name": "Био-марсианский бургер",
+		"createdAt": "2025-06-12T12:13:32.305Z",
+		"updatedAt": "2025-06-12T12:13:33.044Z",
+		"number": 81104,
+		"price": 424
+	}
+}

@@ -1,4 +1,5 @@
 export default {
+	testMatch: ['**/*.test.ts'],
 	testEnvironment: 'jest-environment-jsdom',
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	moduleNameMapper: {

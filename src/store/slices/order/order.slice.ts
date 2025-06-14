@@ -4,7 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import type { TOrder, TOrderSliceInitState } from '../../types/order.types';
 
-const initialState: TOrderSliceInitState = {
+export const initialState: TOrderSliceInitState = {
 	order: {
 		name: '',
 		order: { number: 1 },
@@ -27,3 +27,4 @@ export const orderSlice = createSlice({
 });
 
 export const { setOrderData, setShowOrderModal } = orderSlice.actions;
+export default orderSlice.reducer;

@@ -6,3 +6,6 @@ build
 dist
 webpack/*.js
 package*.json
+cypress/support/commands.js
+cypress/fixtures/
+cypress/plugins/

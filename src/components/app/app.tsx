@@ -36,7 +36,7 @@ export const App = () => {
 
 			<Routes location={background || location}>
 				<Route
-					path='/'
+					index
 					element={
 						<>
 							<DndProvider backend={HTML5Backend}>
@@ -50,10 +50,10 @@ export const App = () => {
 					}
 				/>
 
-				<Route path='/ingredients/:id' element={<IngredientDetails />} />
+				<Route path='ingredients/:id' element={<IngredientDetails />} />
 
-				<Route path='/feed' element={<FeedPage />} />
-				<Route path='/feed/:id' element={<OrderPage />} />
+				<Route path='feed' element={<FeedPage />} />
+				<Route path='feed/:id' element={<OrderPage />} />
 
 				<Route
 					path='/profile'
@@ -66,10 +66,10 @@ export const App = () => {
 					<Route path='orders' element={<ProfileOrders />} />
 				</Route>
 
-				<Route path='/profile/orders/:id' element={<OrderPage />} />
+				<Route path='profile/orders/:id' element={<OrderPage />} />
 
 				<Route
-					path='/login'
+					path='login'
 					element={
 						<ProtectedRoute path='/login'>
 							<LoginPage />
@@ -78,27 +78,27 @@ export const App = () => {
 				/>
 
 				<Route
-					path='/forgot-password'
+					path='forgot-password'
 					element={
-						<ProtectedRoute path='/forgot-password'>
+						<ProtectedRoute path='forgot-password'>
 							<ForgotPassPage />
 						</ProtectedRoute>
 					}
 				/>
 
 				<Route
-					path='/reset-password'
+					path='reset-password'
 					element={
-						<ProtectedRoute path='/reset-password'>
+						<ProtectedRoute path='reset-password'>
 							<ResetPassPage />
 						</ProtectedRoute>
 					}
 				/>
 
 				<Route
-					path='/register'
+					path='register'
 					element={
-						<ProtectedRoute path='/register'>
+						<ProtectedRoute path='register'>
 							<RegisterPage />
 						</ProtectedRoute>
 					}
@@ -109,10 +109,10 @@ export const App = () => {
 
 			{background && (
 				<Routes>
-					<Route path='/ingredients/:id' element={<ModalIngredient />} />
+					<Route path='ingredients/:id' element={<ModalIngredient />} />
 
-					<Route path='/feed/:id' element={<OrderModal />} />
-					<Route path='/profile/orders/:id' element={<OrderModal />} />
+					<Route path='feed/:id' element={<OrderModal />} />
+					<Route path='profile/orders/:id' element={<OrderModal />} />
 				</Routes>
 			)}
 		</div>
