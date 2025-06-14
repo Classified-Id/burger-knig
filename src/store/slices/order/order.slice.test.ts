@@ -1,6 +1,24 @@
+import { expect, describe, it } from '@jest/globals';
 import reducer, { initialState, setOrderData, setShowOrderModal } from './order.slice';
+import { getOrder, getOrderModalState } from '@store';
+
 import type { TOrder } from '../../types/order.types';
-import { getOrder, getOrderModalState } from './order.selector';
+import type { RootState } from '@store';
+
+const testState = {
+	order: {
+		order: {
+			name: 'Test burger',
+			order: { number: 456 },
+			success: true
+		},
+		showOrderModal: true
+	},
+	burgerIngredients: {},
+	authUserSlice: {},
+	orders: {},
+	burgerDataApi: {}
+} as unknown as RootState;
 
 describe('orderSlice', () => {
 	describe('initial state', () => {
@@ -25,7 +43,7 @@ describe('orderSlice', () => {
 		});
 
 		it('should handle partial order data', () => {
-			const partialOrder: Partial<TOrder> = {
+			const partialOrder = {
 				name: 'Partial order',
 				success: false
 			};
@@ -61,17 +79,6 @@ describe('orderSlice', () => {
 	});
 
 	describe('selectors', () => {
-		const testState = {
-			order: {
-				order: {
-					name: 'Test burger',
-					order: { number: 456 },
-					success: true
-				},
-				showOrderModal: true
-			}
-		};
-
 		it('getOrder should return order data', () => {
 			expect(getOrder(testState)).toEqual(testState.order.order);
 		});
