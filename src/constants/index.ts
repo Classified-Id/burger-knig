@@ -11,6 +11,8 @@ export const REFRESH_TOKEN_URL = '/auth/token';
 export const WSS_USER_URL_ORDERS = 'wss://norma.nomoreparties.space/orders';
 export const WSS_URL_ORDERS = 'wss://norma.nomoreparties.space/orders/all';
 
+export const DEV_URL = 'localhost:8080';
+
 export const status = {
 	created: 'Создан',
 	pending: 'Готовится',

@@ -63,15 +63,12 @@ export const BurgerConstructor = () => {
 		}
 
 		if (buns !== null && user) {
+			dispatch(setShowOrderModal(true));
 			sendOrder([
 				buns._id,
 				...burgerIngredients.map((ing) => ing._id),
 				buns._id,
-			])
-				.unwrap()
-				.then(() => {
-					dispatch(setShowOrderModal(true));
-				});
+			]);
 		}
 	};
 
@@ -96,7 +93,8 @@ export const BurgerConstructor = () => {
 	return (
 		<section
 			ref={dropRef}
-			className={clsx('pt-25', styles.burgerConstructor, {
+			data-testid='burger-constructor'
+			className={clsx('pt-25', styles.burgerConstructorWrap, {
 				[styles.dropBorder]: isOver,
 			})}>
 			{buns && (

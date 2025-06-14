@@ -1,5 +1,6 @@
 module.exports = {
-	plugins: ['import'],
+	root: true,
+	plugins: ['import', '@typescript-eslint'],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 2020,
@@ -10,7 +11,7 @@ module.exports = {
 			version: 'detect',
 		},
 		'import/parsers': {
-			'@typescript-eslint/parser': ['.ts', '.tsx',],
+			'@typescript-eslint/parser': ['.ts', '.tsx'],
 		},
 		'import/resolver': {
 			typescript: {
@@ -30,6 +31,19 @@ module.exports = {
 		'plugin:import/typescript',
 		'plugin:jsx-a11y/recommended',
 		'plugin:eslint-comments/recommended',
+	],
+	overrides: [
+		{
+			files: ['cypress/**/*.{js,ts}'],
+			extends: ['plugin:cypress/recommended'],
+			env: {
+				'cypress/globals': true
+			},
+			rules: {
+				'jest/expect-expect': 'off',
+				'@typescript-eslint/no-namespace': 'off',
+			}
+		}
 	],
 	rules: {
 		semi: [2, 'always'],
