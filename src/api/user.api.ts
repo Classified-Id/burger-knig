@@ -30,6 +30,8 @@ export const refreshToken = async (): Promise<ResponseAuthData> => {
 		return data;
 	} catch (error) {
 		console.error('Token refresh failed:', error);
-		throw error instanceof Error ? error : new Error('Не удалось обновить токен');
+		throw error instanceof Error
+			? error
+			: new Error('Не удалось обновить токен');
 	}
 };

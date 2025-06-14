@@ -205,7 +205,7 @@ export const burgerDataApi = createApi({
 					setCookie('refreshToken', data.refreshToken);
 
 					setTimeout(() => {
-						// dispatch(burgerDataApi.util.invalidateTags(['User']));
+						dispatch(burgerDataApi.util.invalidateTags(['User']));
 					}, 100);
 				} catch (error) {
 					console.error('Login failed:', error);
