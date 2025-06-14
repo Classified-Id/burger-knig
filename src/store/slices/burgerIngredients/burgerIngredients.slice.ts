@@ -9,7 +9,7 @@ type TBurgerSliceInitState = {
 	bun: TIngredient | null;
 };
 
-const initialState: TBurgerSliceInitState = {
+export const initialState: TBurgerSliceInitState = {
 	ingredients: [],
 	bun: null,
 };
@@ -45,13 +45,10 @@ export const burgerIngredientsSlice = createSlice({
 			action: PayloadAction<{ dragIndex: number; hoverIndex: number }>
 		) {
 			const { dragIndex, hoverIndex } = action.payload;
-			const draggedItem = state.ingredients[dragIndex];
-			const hoveredItem = state.ingredients[hoverIndex];
-			const sortedIngredients = [...state.ingredients];
-
-			sortedIngredients[dragIndex] = hoveredItem;
-			sortedIngredients[hoverIndex] = draggedItem;
-			state.ingredients = sortedIngredients;
+			const newIngredients = [...state.ingredients];
+			const [draggedItem] = newIngredients.splice(dragIndex, 1);
+			newIngredients.splice(hoverIndex, 0, draggedItem);
+			state.ingredients = newIngredients;
 		},
 	},
 });

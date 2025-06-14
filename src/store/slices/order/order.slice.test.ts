@@ -5,24 +5,11 @@ import reducer, {
 	setShowOrderModal,
 } from './order.slice';
 import { getOrder, getOrderModalState } from './order.selector';
+import { getTestState, testOrder } from '@utils/test-utils';
 
 import type { TOrder } from '../../types/order.types';
-import type { RootState } from '@store';
 
-const testState = {
-	order: {
-		order: {
-			name: 'Test burger',
-			order: { number: 456 },
-			success: true,
-		},
-		showOrderModal: true,
-	},
-	burgerIngredients: {},
-	authUserSlice: {},
-	orders: {},
-	burgerDataApi: {},
-} as unknown as RootState;
+const testState = getTestState();
 
 describe('orderSlice', () => {
 	describe('initial state', () => {
@@ -33,12 +20,6 @@ describe('orderSlice', () => {
 
 	describe('setOrderData', () => {
 		it('should set order data correctly', () => {
-			const testOrder: TOrder = {
-				name: 'Test order',
-				order: { number: 123 },
-				success: true,
-			};
-
 			const action = setOrderData(testOrder);
 			const state = reducer(initialState, action);
 
