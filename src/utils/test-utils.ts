@@ -1,6 +1,16 @@
 import type { RootState, TIngredient } from '@store';
-
 import type { TOrder } from '../store/types/order.types';
+import type { OrderType } from '../types/order.types';
+
+export const testOrders: OrderType = {
+	_id: '1',
+	ingredients: ['ing1', 'ing2'],
+	status: 'done',
+	name: 'Test order',
+	number: 123,
+	createdAt: '2023-01-01',
+	updatedAt: '2023-01-01',
+};
 
 export const testIngredient: TIngredient = {
 	_id: '60d3b41abdacab0026a733c6',

@@ -16,7 +16,7 @@ import {
 	sendMessage,
 	onMessageReceived,
 	onError,
-} from './slices/orders-slice';
+} from './slices/orders/orders-slice';
 
 import type { OrderMessageType } from '../types/order.types';
 
@@ -87,4 +87,4 @@ export {
 	onError,
 	addOrder,
 	removeOrder,
-} from './slices/orders-slice';
+} from './slices/orders/orders-slice';
