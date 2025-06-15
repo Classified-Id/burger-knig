@@ -4,4 +4,5 @@ import type { TIngredient } from '@store';
 export interface ProductsListProps {
 	children: ReactNode;
 	data: TIngredient[];
+	id: string;
 }

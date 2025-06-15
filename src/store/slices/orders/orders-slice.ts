@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { OrderMessageType, OrderType } from '../../types/order.types';
+import type { OrderMessageType, OrderType } from '../../../types/order.types';
 
-type OrderState = {
+export type TOrderState = {
 	data: OrderMessageType | null;
 	orderNumber: number | null;
 	error: Event | null;
@@ -17,7 +17,7 @@ type OrderState = {
 	currentOrder: OrderType | null;
 };
 
-const initialState: OrderState = {
+export const initialState: TOrderState = {
 	data: null,
 	orderNumber: null,
 	error: null,
@@ -77,3 +77,5 @@ export const {
 	addOrder,
 	removeOrder,
 } = ordersSlice.actions;
+
+export default ordersSlice.reducer;

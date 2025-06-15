@@ -16,14 +16,14 @@ export const refreshToken = async (): Promise<ResponseAuthData> => {
 			body: JSON.stringify({ token: refreshToken }),
 		});
 
+		const data = await response.json();
+
 		if (!response.ok) {
-			const error = await response.json().catch(() => null);
-			console.error(`${error?.message} - ${response.status}`);
+			console.error(`${data?.message} - ${response.status}`);
+			throw new Error(data?.message || 'Не удалось обновить токен');
 		}
 
-		const data: ResponseAuthData = await response.json();
 		const accessToken = data.accessToken.split('Bearer ')[1];
-
 		setCookie('accessToken', accessToken, { expires: 1200 });
 		setCookie('refreshToken', data.refreshToken);
 
